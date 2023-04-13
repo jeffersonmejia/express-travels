@@ -1,0 +1,72 @@
+:root {
+	--main-bg-color: rgb(245, 245, 245);
+	--card-bg-color: rgb(255, 255, 255);
+	--button-bg-color: #2196f3;
+	--button-text-color: #fff;
+	--reading-text-color: #838383;
+	--button-bg-color-hover: #1565c0;
+	--button-bg-color-active: #0d47a1;
+	--border-radius-container: 24px;
+	--border-radius-button: 12px;
+	--border-light: 1px solid rgb(223, 223, 223);
+	--navbar-height: 50px;
+	--main-font: 'Nunito Sans', sans-serif;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	background-color: var(--main-bg-color);
+	font-family: var(--main-font);
+}
+
+img {
+	width: 100%;
+}
+button,
+a {
+	width: 100%;
+}
+button {
+	border: none;
+	background-color: var(--button-bg-color);
+	color: var(--button-text-color);
+
+	font-weight: bold;
+	cursor: pointer;
+}
+
+input,
+button {
+	border-radius: var(--border-radius-button);
+	padding: 12px;
+}
+
+input {
+	border: var(--border-light);
+}
+
+button:hover {
+	background-color: var(--button-bg-color-hover);
+}
+
+fieldset {
+	border: none;
+	display: flex;
+	flex-direction: column;
+}
+
+form {
+	border: var(--border-light);
+	border-radius: var(--border-radius-container);
+	padding: 24px 32px;
+	width: 100%;
+}
+
+legend {
+	margin: 16px 0;
+}

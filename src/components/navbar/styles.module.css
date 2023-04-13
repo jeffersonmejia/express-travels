@@ -1,0 +1,41 @@
+.navbar {
+	width: 100%;
+	height: var(--navbar-height);
+	background-color: var(--card-bg-color);
+	display: flex;
+	align-items: center;
+	padding: 8px;
+	border-bottom: var(--border-light);
+	position: fixed;
+}
+
+.navbar span {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.navbar > span {
+	margin-right: 8px;
+	color: var(--reading-text-color);
+	cursor: pointer;
+}
+
+.navbar h3 {
+	flex-grow: 1;
+	text-transform: uppercase;
+	font-size: 0.9rem;
+	margin-top: 4px;
+}
+
+.navbar li {
+	list-style: none;
+	display: flex;
+	gap: 6px;
+	align-items: center;
+	color: var(--reading-text-color);
+}
+
+.navbar li > span {
+	cursor: pointer;
+}
