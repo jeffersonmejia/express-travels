@@ -1,0 +1,25 @@
+.dropdown {
+	width: 50vh;
+	max-width: 200px;
+	background-color: var(--card-bg-color);
+	position: fixed;
+	top: calc(var(--navbar-height) + 8px);
+	right: 2vh;
+	padding: 16px;
+	border-radius: var(--border-radius-container);
+}
+
+.dropdown li {
+	cursor: pointer;
+	background-color: var(--main-bg-color);
+	padding: 8px;
+	padding-left: 12px;
+	border-radius: var(--border-radius-container);
+	display: flex;
+	align-items: center;
+}
+
+.dropdown span {
+	font-size: 1rem;
+	padding-top: 4px;
+}

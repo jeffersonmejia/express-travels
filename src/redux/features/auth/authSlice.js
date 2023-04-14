@@ -7,11 +7,7 @@ export const authSlice = createSlice({
 	initialState,
 	reducers: {
 		auth: (state, action) => {
-			try {
-				state.isAuth = action.payload
-			} catch (error) {
-				console.log(error)
-			}
+			state.isAuth = action.payload
 		},
 	},
 })
