@@ -3,8 +3,10 @@ import { useDispatch } from 'react-redux'
 import { auth } from '../../redux/features/auth/authSlice'
 import { useRouter } from 'next/router'
 import styles from './style.module.css'
+import { useState } from 'react'
 
 export function useHook() {
+	const [error, setError] = useState(null)
 	const [signin] = useSigninMutation()
 	const dispatch = useDispatch()
 	const router = useRouter()
@@ -22,18 +24,23 @@ export function useHook() {
 	const authUser = async (credentials) => {
 		try {
 			const response = await signin(credentials)
+			if (response.error) throw { response: response.error }
 			if (response.data) {
 				const status = parseInt(response.data.status)
 				if (status === 200) {
 					dispatch(auth(true))
 					router.push('/dashboard')
+					setError(null)
 				}
 			}
-		} catch (error) {
-			console.log(error)
+		} catch (signin_error) {
+			const { data } = signin_error.response
+			setError(data.statusText)
+			setTimeout(() => setError(null), 2000)
 		}
 	}
 	const handleChange = (event) => {}
 	const myClass = styles.main
-	return { handleSubmit, handleChange, myClass }
+	const errorClass = styles.signin_error
+	return { handleSubmit, handleChange, myClass, error, errorClass }
 }

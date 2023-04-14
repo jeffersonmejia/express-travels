@@ -11,6 +11,7 @@
 	--border-light: 1px solid rgb(223, 223, 223);
 	--navbar-height: 50px;
 	--main-font: 'Nunito Sans', sans-serif;
+	--danger: red;
 }
 
 * {
