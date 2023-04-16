@@ -6,11 +6,21 @@ export default function Signin() {
 			<form onSubmit={handleSubmit}>
 				<fieldset>
 					<legend>
-						<h1>Ingreso</h1>
-						<small>Solo personal autorizado</small>
+						<h2>Ingreso</h2>
+						<p>Solo personal autorizado</p>
 					</legend>
-					<input type="text" name="username" placeholder="Ingresa tu usuario" />
-					<input type="text" name="password" placeholder="Ingresa tu contraseña" />
+					<input
+						type="text"
+						name="username"
+						placeholder="Ingresa tu usuario"
+						maxLength="16"
+					/>
+					<input
+						type="password"
+						name="password"
+						placeholder="Ingresa tu contraseña"
+						maxLength="32"
+					/>
 					<button>Iniciar sesion</button>
 					{error && <small className={errorClass}>{error}</small>}
 				</fieldset>

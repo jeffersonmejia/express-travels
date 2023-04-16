@@ -2,48 +2,44 @@ import { queryDB } from '../../../services/database'
 import { sign } from 'jsonwebtoken'
 import { serialize } from 'cookie'
 
-const DEFAULT_JSON = { status: 503, statusText: 'Service unavaliable', response: null }
+const DEFAULT_JSON = {
+	status: 500,
+	api_response: 'Servidor no disponible, intenta más tarde',
+}
+
+const USER_AUTHORIZED = { status: 200, api_response: '¡Acceso garantizado!' }
+
+const HAS_SESSION = { status: 200, api_response: 'Ya tienes una sesión activa' }
+const HAS_NOT_SESSION = { status: 401, api_response: 'No tienes una sesión activa' }
 
 function verifyCredentials(data, method) {
-	const requestError = {}
-	if (method !== 'POST') {
-		requestError.status = 405
-		requestError.statusText = 'Method not allowed'
-	}
-	const { customer_username, customer_password } = data
-	if (customer_username === undefined || customer_password === undefined) {
-		requestError.status = 406
-		requestError.statusText = 'Username or password not found in the request'
-	} else if (customer_username.length === 0 || customer_password.length === 0) {
-		requestError.status = 406
-		requestError.statusText = 'Inacceptable. Username or password must not be empty'
-	}
-	return requestError
+	if (method !== 'POST') return { status: 404, api_response: 'Método no permtido' }
+	const { username, password } = data
+	if (username === undefined || password === undefined)
+		return { status: 405, api_response: 'No se encontró el usuario y clave' }
+
+	if (username.length === 0 || password.length === 0)
+		return { status: 406, api_response: 'Usuario o contraseña vacía' }
 }
 
-async function authenticateUser({ customer_username, customer_password }) {
-	let auth = {}
+async function authenticateUser({ username, password }) {
 	const query = {
-		text: 'select customer_id, role_id from customers where customer_username = $1 and customer_password = $2;',
-		values: [customer_username, customer_password],
+		text: 'select * from fetch_user_profile($1, $2);',
+		values: [username, password],
 	}
 	const result = await queryDB(query)
-	if (!result) {
-		auth.status = 502
-		auth.statusText = 'Server unavailable'
-	} else if (result.name === 'error') {
-		auth.status = 500
-		auth.statusText = 'Data unavailable'
-		console.log('[DEBUG] error:', result.routine)
-	} else if (!result.rowCount > 0) {
-		auth.status = 404
-		auth.statusText = 'The user it does not exists'
-	} else auth = { ...auth, result }
-	return auth
-}
+	if (!result) return { status: 502, api_response: 'Servidor no disponible' }
 
-function authorizeUser({ customer_id }) {
-	return { status: 200, statusText: 'ok', response: customer_id }
+	if (result.name === 'error')
+		return { status: 500, api_response: 'Datos no disponibles' }
+
+	if (!result.rowCount > 0)
+		return { status: 404, api_response: 'Usuario o contraseña incorrecta' }
+	return { status: 200, api_response: result.rows[0] }
+}
+//true -> has session, else not
+function verifySession({ cookies }) {
+	return cookies.auth !== undefined
 }
 
 function createJWT(userData) {
@@ -54,8 +50,8 @@ function createJWT(userData) {
 		CURRENT_DATE = Math.floor(Date.now() / 1000)
 
 	const exp = CURRENT_DATE + SECS * MINUTES * HOURS * DAYS
-	const { customer_id, role_id } = userData
-	const tokenData = { exp, customer_id, role_id }
+	const { customer_id, customer_name, role_id, role_name } = userData
+	const tokenData = { exp, customer_id, customer_name, role_id, role_name }
 	const token = sign(tokenData, 'secret')
 
 	const serialized = serialize('auth', token, {
@@ -69,29 +65,33 @@ function createJWT(userData) {
 }
 
 export default async function handler(req, res) {
-	let json = DEFAULT_JSON
-	let AUTH_TOKEN
+	let json = DEFAULT_JSON,
+		AUTH_TOKEN
+	const { checkSession } = req.body
+	if (checkSession) {
+		const hasSession = verifySession(req)
+		if (hasSession) {
+			return res.status(200).json(HAS_SESSION)
+		} else return res.status(401).json(HAS_NOT_SESSION)
+	}
 	try {
-		const data = req.body,
-			method = req.method,
-			credentials = verifyCredentials(data, method)
-
-		if (credentials.status >= 400) {
-			throw credentials
-		}
+		const { method } = req
+		const data = req.body
+		const credentials = verifyCredentials(data, method)
+		if (credentials && credentials.status >= 400) throw credentials
 		const auth = await authenticateUser(data)
 		if (auth.status >= 400) throw auth
+		const user = auth.api_response
 
-		const userData = auth.result.rows[0]
-		json = authorizeUser(userData)
-		AUTH_TOKEN = createJWT(userData)
+		AUTH_TOKEN = createJWT(user)
 		res.setHeader('Set-Cookie', AUTH_TOKEN)
+		json = USER_AUTHORIZED
 	} catch (account_error) {
-		if (account_error.status || account_error.statusText) {
-			json.status = account_error.status
-			json.statusText = account_error.statusText
-		}
+		console.log('error->', account_error)
+		const { status, api_response } = account_error
+		json = status || api_response ? account_error : json
 	} finally {
-		res.status(json.status).json(json)
+		const { status } = json
+		res.status(status).json(json)
 	}
 }

@@ -3,7 +3,10 @@
 	--card-bg-color: rgb(255, 255, 255);
 	--button-bg-color: #2196f3;
 	--button-text-color: #fff;
-	--reading-text-color: #838383;
+	--reading-text-color: rgb(131, 131, 131);
+	--text-color: #000;
+	--input-bg-color: rgb(100, 100, 100);
+	--placehoder: rgb(128, 128, 128);
 	--button-bg-color-hover: #1565c0;
 	--button-bg-color-active: #0d47a1;
 	--border-radius-container: 24px;
@@ -36,7 +39,6 @@ button {
 	border: none;
 	background-color: var(--button-bg-color);
 	color: var(--button-text-color);
-
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -49,6 +51,12 @@ button {
 
 input {
 	border: var(--border-light);
+	outline-color: var(--button-bg-color);
+	color: var(--input-bg-color);
+}
+
+input::placeholder {
+	color: var(--placehoder);
 }
 
 button:hover {
@@ -70,4 +78,23 @@ form {
 
 legend {
 	margin: 16px 0;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 32px 0;
+}
+
+.error {
+	color: var(--danger);
+	animation: opacity 0.3s ease-in;
+}
+
+@keyframes opacity {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

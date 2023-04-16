@@ -1,17 +1,37 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useSigninMutation } from '../../redux/features/auth/signinSlice'
+import { auth } from '../../redux/features/auth/authSlice'
+import { Unathorized } from '../unathorized'
 
+const TIME_WAITING = 10000
 export function withAuth(WrappedComponent) {
 	const Wrapper = (props) => {
 		const router = useRouter()
-		const { auth } = useSelector((state) => state)
+		const dispatch = useDispatch()
+		const [signin] = useSigninMutation()
+		const session = useSelector((state) => state.auth)
 		useEffect(() => {
-			if (!auth.isAuth) {
-				router.push('/signin')
+			const hasSession = async () => {
+				try {
+					if (session.isAuth) return
+					const response = await signin({ checkSession: true })
+					const { error } = response
+					if (error) throw error
+					dispatch(auth(true))
+				} catch (error) {
+					setTimeout(() => router.push('/signin'), TIME_WAITING)
+				}
 			}
-		}, [router, auth])
-		return <WrappedComponent {...props} />
+			hasSession()
+		}, [session.isAuth])
+		return session.isAuth ? (
+			<WrappedComponent {...props} />
+		) : (
+			<Unathorized wait={TIME_WAITING} />
+		)
 	}
+
 	return Wrapper
 }

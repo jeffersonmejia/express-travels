@@ -17,6 +17,5 @@
 }
 
 .signin_error {
-	color: var(--danger);
 	padding-left: 12px;
 }

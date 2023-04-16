@@ -1,0 +1,16 @@
+.aside {
+	width: 80%;
+	height: 100vh;
+	max-width: 250px;
+	background-color: rgb(224, 224, 224);
+	z-index: 996;
+	position: fixed;
+	padding: 16px;
+	padding-left: 12px;
+}
+.aside li {
+	list-style: none;
+}
+.aside li > span {
+	cursor: pointer;
+}
