@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = { isDropDown: false, isAside: false }
 
-export const dropdownSlice = createSlice({
-	name: 'navbarDropdown',
+export const navbar = createSlice({
+	name: 'navbar',
 	initialState,
 	reducers: {
-		dropdown: (state, action) => {
+		toggleDropdown: (state, action) => {
 			state.isDropDown = action.payload
 		},
 		toggleAside: (state, action) => {
@@ -15,5 +15,5 @@ export const dropdownSlice = createSlice({
 	},
 })
 
-export const { dropdown, toggleAside } = dropdownSlice.actions
-export default dropdownSlice.reducer
+export const { toggleDropdown, toggleAside } = navbar.actions
+export default navbar.reducer

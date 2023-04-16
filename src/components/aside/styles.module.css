@@ -2,11 +2,22 @@
 	width: 80%;
 	height: 100vh;
 	max-width: 250px;
-	background-color: rgb(224, 224, 224);
+	background-color: var(--card-bg-color);
+	box-shadow: 1px 1px 10px rgb(220, 220, 220);
 	z-index: 996;
 	position: fixed;
 	padding: 16px;
 	padding-left: 12px;
+}
+.aside hr {
+	color: var(--reading-text-color);
+	margin: 8px 0;
+}
+.aside > ul:first-child {
+	display: flex;
+}
+.aside h2 {
+	flex-grow: 1;
 }
 .aside li {
 	list-style: none;

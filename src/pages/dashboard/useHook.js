@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useGetProfileQuery } from '../../redux/features/user/userApi'
+import { useGetProfileQuery } from '../../redux/features/user/userAPI'
 import { useEffect } from 'react'
 import { setProfile } from '../../redux/features/user/userSlice'
 export function useHook() {

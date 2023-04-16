@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleAside } from '../../redux/features/navbar/navbar'
+import { toggleAside } from '../../redux/features/navbar/navbarSlice'
 
 export function useHook() {
 	const dispatch = useDispatch()
@@ -8,7 +8,7 @@ export function useHook() {
 	const handleClick = () => {
 		dispatch(toggleAside(false))
 	}
-	const myClass = styles.aside
+	const myClass = `${styles.aside} transform_x`
 	const material = 'material-symbols-outlined'
 	return { myClass, material, handleClick, roleName }
 }

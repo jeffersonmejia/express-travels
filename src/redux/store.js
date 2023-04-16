@@ -1,19 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { signinSlice } from './features/auth/signinSlice'
-import authReducer from '../redux/features/auth/authSlice'
-import navbarReducer from '../redux/features/navbar/navbar'
+import { authAPI } from './features/auth/authAPI'
+import { userAPI } from './features/user/userAPI'
+import authReducer from './features/auth/authSlice'
+import navbarReducer from './features/navbar/navbarSlice'
 import userReducer from './features/user/userSlice'
-import { userApi } from './features/user/userApi'
 
 const store = configureStore({
 	reducer: {
-		[signinSlice.reducerPath]: signinSlice.reducer,
-		[userApi.reducerPath]: userApi.reducer,
+		[authAPI.reducerPath]: authAPI.reducer,
+		[userAPI.reducerPath]: userAPI.reducer,
 		auth: authReducer,
 		navbar: navbarReducer,
 		user: userReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(signinSlice.middleware).concat(userApi.middleware),
+		getDefaultMiddleware().concat(authAPI.middleware).concat(userAPI.middleware),
 })
 export default store

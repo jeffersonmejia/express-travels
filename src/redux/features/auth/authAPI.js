@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const signinSlice = createApi({
-	reducerPath: 'apiSignin',
+export const authAPI = createApi({
+	reducerPath: 'authAPI',
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'http://localhost:3000',
 	}),
@@ -21,4 +21,4 @@ export const signinSlice = createApi({
 		}),
 	}),
 })
-export const { useSigninMutation, useSignoutMutation } = signinSlice
+export const { useSigninMutation, useSignoutMutation } = authAPI

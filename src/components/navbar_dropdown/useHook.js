@@ -1,9 +1,9 @@
 import styles from './styles.module.css'
-import { useSignoutMutation } from '../../redux/features/auth/signinSlice'
 import { useDispatch } from 'react-redux'
-import { auth } from '../../redux/features/auth/authSlice'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useSignoutMutation } from '../../redux/features/auth/authAPI'
+import { authorizeUser } from '../../redux/features/auth/authSlice'
 
 const initialState = 'Cerrar sesión'
 export function useHook() {
@@ -18,7 +18,7 @@ export function useHook() {
 			if (data.status === 200) {
 				setLogout('Cerrando sesión...')
 			} else throw { status: 401 }
-			dispatch(auth(false))
+			dispatch(authorizeUser(false))
 			setTimeout(() => {
 				router.push('/signin')
 			}, 1500)

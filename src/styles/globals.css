@@ -89,6 +89,13 @@ legend {
 	color: var(--danger);
 	animation: opacity 0.3s ease-in;
 }
+.opacity {
+	animation: opacity 0.3s ease-in;
+}
+
+.transform_x {
+	animation: transform_x 0.3s ease-in;
+}
 
 @keyframes opacity {
 	from {
@@ -96,5 +103,16 @@ legend {
 	}
 	to {
 		opacity: 1;
+	}
+}
+
+@keyframes transform_x {
+	from {
+		opacity: 0;
+		transform: translateX(-200px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
 	}
 }

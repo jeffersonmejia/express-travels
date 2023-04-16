@@ -1,6 +1,6 @@
-import { useSigninMutation } from '../../redux/features/auth/signinSlice'
+import { useSigninMutation } from '../../redux/features/auth/authAPI'
 import { useDispatch } from 'react-redux'
-import { auth } from '../../redux/features/auth/authSlice'
+import { authorizeUser } from '../../redux/features/auth/authSlice'
 import { useRouter } from 'next/router'
 import styles from './style.module.css'
 import { useState } from 'react'
@@ -26,7 +26,7 @@ export function useHook() {
 			const { data, error } = fetch_response
 			if (error) throw error
 			else if (status >= 400) throw data
-			dispatch(auth(true))
+			dispatch(authorizeUser(true))
 			setError(null)
 			router.push('/dashboard')
 		} catch (signin_error) {

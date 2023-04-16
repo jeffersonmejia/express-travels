@@ -1,4 +1,5 @@
 import { useHook } from './useHook'
+import { RoleSection } from '../role_section'
 
 export function Aside() {
 	const { myClass, material, handleClick, roleName } = useHook()
@@ -15,10 +16,7 @@ export function Aside() {
 				</li>
 			</ul>
 			<hr />
-			<h3>Role section</h3>
-			<ul>
-				<li>Role action</li>
-			</ul>
+			<RoleSection />
 		</aside>
 	)
 }
