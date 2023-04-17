@@ -1,7 +1,7 @@
 import '../styles/globals.css'
-import store from '../redux/store'
 import { Provider } from 'react-redux'
 import { createWrapper } from 'next-redux-wrapper'
+import store from '../redux/store'
 import { Footer } from '../components/footer'
 
 function MyApp({ Component, pageProps }) {

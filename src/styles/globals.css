@@ -15,6 +15,9 @@
 	--navbar-height: 50px;
 	--main-font: 'Nunito Sans', sans-serif;
 	--danger: red;
+	--section-bg-color: rgb(201, 226, 247);
+	--section-hover-color: rgb(187, 218, 243);
+	--section-text-color: rgb(36, 143, 230);
 }
 
 * {

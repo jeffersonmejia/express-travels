@@ -9,10 +9,10 @@ export function useHook() {
 	const handleClick = (event) => {
 		const { textContent } = event.target
 		if (textContent === 'menu') {
-			dispatch(toggleAside(true))
+			dispatch(toggleAside())
 			return
 		}
-		dispatch(toggleDropdown(isDropDown ? false : true))
+		dispatch(toggleDropdown())
 	}
 	const myClass = styles.navbar
 	const material = 'material-symbols-outlined'

@@ -26,12 +26,17 @@ export function useHook() {
 			const { data, error } = fetch_response
 			if (error) throw error
 			else if (status >= 400) throw data
-			dispatch(authorizeUser(true))
+			dispatch(authorizeUser())
 			setError(null)
 			router.push('/dashboard')
 		} catch (signin_error) {
-			const { api_response } = signin_error.data
-			setError(api_response)
+			if (!signin_error.data || !signin_error.data.api_response) {
+				setError(`Error desconocido: ${signin_error}`)
+			} else {
+				const { api_response } = signin_error.data
+				setError(api_response)
+			}
+		} finally {
 			setTimeout(() => setError(null), 2000)
 		}
 	}

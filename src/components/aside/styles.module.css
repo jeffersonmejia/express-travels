@@ -6,12 +6,23 @@
 	box-shadow: 1px 1px 10px rgb(220, 220, 220);
 	z-index: 996;
 	position: fixed;
-	padding: 16px;
+	padding: 16px 0;
+
+	color: var(--reading-text-color);
+}
+.aside :is(h2) {
 	padding-left: 12px;
 }
+.aside > ul:first-child li:nth-child(2) {
+	margin-right: 12px;
+}
 .aside hr {
-	color: var(--reading-text-color);
-	margin: 8px 0;
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: none;
+	border-bottom: 1px solid rgb(221, 221, 221);
+	background-color: red;
 }
 .aside > ul:first-child {
 	display: flex;
@@ -20,8 +31,13 @@
 	flex-grow: 1;
 }
 .aside li {
+	width: 100%;
 	list-style: none;
+}
+.aside > ul:first-child li:last-child {
+	text-align: right;
 }
 .aside li > span {
 	cursor: pointer;
+	text-align: right;
 }

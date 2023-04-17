@@ -2,21 +2,18 @@ import { queryDB } from '../../../services/database'
 import { sign } from 'jsonwebtoken'
 import { serialize } from 'cookie'
 
-const DEFAULT_JSON = {
-	status: 500,
-	api_response: 'Servidor no disponible, intenta más tarde',
-}
-
+const DEFAULT = { status: 500, api_response: 'Servidor no disponible, intenta más tarde' }
 const USER_AUTHORIZED = { status: 200, api_response: '¡Acceso garantizado!' }
-
 const HAS_SESSION = { status: 200, api_response: 'Ya tienes una sesión activa' }
 const HAS_NOT_SESSION = { status: 401, api_response: 'No tienes una sesión activa' }
 
-function verifyCredentials(data, method) {
-	if (method !== 'POST') return { status: 404, api_response: 'Método no permtido' }
+function verifyCredentials(data) {
 	const { username, password } = data
 	if (username === undefined || password === undefined)
-		return { status: 405, api_response: 'No se encontró el usuario y clave' }
+		return {
+			status: 405,
+			api_response: 'No se encontró el usuario o clave en la petición',
+		}
 
 	if (username.length === 0 || password.length === 0)
 		return { status: 406, api_response: 'Usuario o contraseña vacía' }
@@ -37,7 +34,6 @@ async function authenticateUser({ username, password }) {
 		return { status: 404, api_response: 'Usuario o contraseña incorrecta' }
 	return { status: 200, api_response: result.rows[0] }
 }
-//true -> has session, else not
 function verifySession({ cookies }) {
 	return cookies.auth !== undefined
 }
@@ -65,7 +61,7 @@ function createJWT(userData) {
 }
 
 export default async function handler(req, res) {
-	let json = DEFAULT_JSON,
+	let json = DEFAULT,
 		AUTH_TOKEN
 	const { checkSession } = req.body
 	if (checkSession) {
@@ -75,9 +71,8 @@ export default async function handler(req, res) {
 		} else return res.status(401).json(HAS_NOT_SESSION)
 	}
 	try {
-		const { method } = req
 		const data = req.body
-		const credentials = verifyCredentials(data, method)
+		const credentials = verifyCredentials(data)
 		if (credentials && credentials.status >= 400) throw credentials
 		const auth = await authenticateUser(data)
 		if (auth.status >= 400) throw auth

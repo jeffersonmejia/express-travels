@@ -1,14 +1,14 @@
 import { useHook } from './useHook'
 
 export function NavbarDropDown() {
-	const { myClass, material, handleClick, logout } = useHook()
+	const { myClass, material, handleClick, loading } = useHook()
 	return (
 		<ul className={myClass}>
-			<li>
+			<li onClick={handleClick}>
 				<small>
 					<span className={material}>logout</span>
 				</small>
-				<small onClick={handleClick}>{logout}</small>
+				<small>{loading}</small>
 			</li>
 		</ul>
 	)

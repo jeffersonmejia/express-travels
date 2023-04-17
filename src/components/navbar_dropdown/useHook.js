@@ -1,36 +1,36 @@
 import styles from './styles.module.css'
 import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useSignoutMutation } from '../../redux/features/auth/authAPI'
-import { authorizeUser } from '../../redux/features/auth/authSlice'
+import { toggleDropdown } from '../../redux/features/navbar/navbarSlice'
+import { logOut } from '../../redux/features/auth/authSlice'
+import { useRouter } from 'next/router'
 
 const initialState = 'Cerrar sesión'
 export function useHook() {
-	const [logout, setLogout] = useState(initialState)
+	const [loading, setLoading] = useState(initialState)
 	const [signout] = useSignoutMutation()
 	const dispatch = useDispatch()
 	const router = useRouter()
 	const handleClick = async () => {
+		setLoading('Cerrando sesión...')
 		try {
 			const response = await signout()
 			const { data } = response
-			if (data.status === 200) {
-				setLogout('Cerrando sesión...')
-			} else throw { status: 401 }
-			dispatch(authorizeUser(false))
-			setTimeout(() => {
-				router.push('/signin')
-			}, 1500)
+			if (!data.status === 200) throw { status: 401 }
+			dispatch(logOut())
+			dispatch(toggleDropdown())
 		} catch (error) {
-			setLogout('Error', error.status)
+			setLoading(`Error: ${error.status || 'Desconocido'}`)
 			setTimeout(() => {
-				setLogout(initialState)
+				setLoading('...')
+				router.push('/signin')
 			}, 2000)
+		} finally {
+			setTimeout(() => setLoading(initialState), 2500)
 		}
 	}
-
 	const myClass = styles.dropdown
 	const material = 'material-symbols-outlined'
-	return { myClass, material, handleClick, logout }
+	return { myClass, material, handleClick, loading }
 }
