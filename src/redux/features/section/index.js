@@ -1,40 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const ACTION_DEFAULT = 0
+const PACKAGE = 0
+const PASSAGE = 1
+const PACKAGE_AND_PASSAGE = 2
+const ACCOUNTING = 3
+const SCHEDULES = 4
+const INSPECTION = 5
+const HUMAN_SOURCES = 6
+const SYSTEMS = 7
+
 const initialState = [
 	{
-		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 0,
-		actionActive: 0,
+		operation: ['Crear viaje', 'Gestionar ventas', 'Generar reportes'],
+		roleId: PACKAGE,
+		actionActive: ACTION_DEFAULT,
+	},
+	{
+		operation: ['Crear viaje', 'Gestionar ventas', 'Generar reportes'],
+		roleId: PASSAGE,
+		actionActive: ACTION_DEFAULT,
+	},
+	{
+		operation: ['Crear viaje', 'Gestionar ventas', 'Generar reportes'],
+		roleId: PACKAGE_AND_PASSAGE,
+		actionActive: ACTION_DEFAULT,
+	},
+	{
+		operation: ['Generar reportes', 'Realizar declaraciones', 'Consultar declaraciones'],
+		roleId: ACCOUNTING,
+		actionActive: ACTION_DEFAULT,
+	},
+	{
+		operation: ['Crear frecuencia', 'Gestionar frecuencia'],
+		roleId: SCHEDULES,
+		actionActive: ACTION_DEFAULT,
+	},
+	{
+		operation: ['Generar reportes', 'Reportar empleados', 'Gestionar personal'],
+		roleId: INSPECTION,
+		actionActive: ACTION_DEFAULT,
 	},
 	{
 		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 1,
-		actionActive: 0,
+		roleId: HUMAN_SOURCES,
+		actionActive: ACTION_DEFAULT,
 	},
 	{
-		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 2,
-		actionActive: 0,
-	},
-	{
-		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 3,
-		actionActive: 0,
-	},
-	{
-		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 4,
-		actionActive: 0,
-	},
-	{
-		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 5,
-		actionActive: 0,
-	},
-	{
-		operation: ['Contratar personal', 'Gestionar personal'],
-		roleId: 6,
-		actionActive: 0,
+		operation: ['Consultar métricas', 'Crear copia de seguridad', 'opciones avanzadas'],
+		roleId: SYSTEMS,
+		actionActive: ACTION_DEFAULT,
 	},
 ]
 
@@ -43,7 +58,8 @@ export const sectionSlice = createSlice({
 	initialState,
 	reducers: {
 		toggleSection: (state, action) => {
-			console.log(action.payload)
+			const { roleId, actionActive } = action.payload
+			state[roleId].actionActive = actionActive
 		},
 	},
 })
