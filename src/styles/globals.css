@@ -47,7 +47,8 @@ button {
 }
 
 input,
-button {
+button,
+select {
 	border-radius: var(--border-radius-button);
 	padding: 12px;
 }
@@ -56,6 +57,10 @@ input {
 	border: var(--border-light);
 	outline-color: var(--button-bg-color);
 	color: var(--input-bg-color);
+}
+
+select {
+	border: var(--border-light);
 }
 
 input::placeholder {

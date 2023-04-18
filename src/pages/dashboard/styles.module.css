@@ -1,0 +1,5 @@
+.main {
+	position: relative;
+	padding: 0 16px;
+	padding-top: calc(var(--navbar-height) + 12px);
+}

@@ -2,14 +2,15 @@ import { withAuth } from '../../components/hoc/withAuth'
 import { Navbar } from '../../components/navbar'
 import { Aside } from '../../components/aside'
 import { useHook } from './useHook'
+import { RoleDash } from '../../components/role_dash'
 
 function Dashboard() {
-	const { isAside } = useHook()
+	const { isAside, myClass } = useHook()
 	return (
-		<main>
+		<main className={myClass}>
 			<Navbar />
 			{isAside && <Aside />}
-			<h1>Bienvenido al Panel de control</h1>
+			<RoleDash />
 		</main>
 	)
 }
