@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useGetProfileQuery } from '../../redux/features/user/userAPI'
 import { useEffect } from 'react'
 import { setProfile } from '../../redux/features/user/userSlice'
+import { toggleAside } from '../../redux/features/navbar/navbarSlice'
 
 export function useHook() {
 	const { isAside } = useSelector((state) => state.navbar)
@@ -17,6 +18,9 @@ export function useHook() {
 				roleName: role_name,
 			}
 			dispatch(setProfile(currentProfile))
+		}
+		return () => {
+			if (isAside) dispatch(toggleAside())
 		}
 	}, [profile, dispatch])
 	return { isAside }
