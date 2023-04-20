@@ -9,7 +9,6 @@
 	top: 0;
 	left: 0;
 	padding: 16px 0;
-
 	color: var(--reading-text-color);
 }
 .aside :is(h2) {
@@ -17,6 +16,8 @@
 }
 .aside > ul:first-child li:nth-child(2) {
 	margin-right: 12px;
+	width: fit-content;
+	height: fit-content;
 }
 .aside hr {
 	width: 100%;

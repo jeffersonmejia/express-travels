@@ -1,7 +1,7 @@
 import { useHook } from './useHook'
 
 export function RoleSection() {
-	const { myClass, material, sections, sectionStyle, handleClick } = useHook()
+	const { myClass, sections, sectionStyle, handleClick } = useHook()
 	return (
 		<ul className={myClass}>
 			{sections &&

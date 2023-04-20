@@ -1,10 +1,11 @@
 import { useHook } from './useHook'
 import { NavbarDropDown } from '../navbar_dropdown'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { Aside } from '../aside'
 
-export function Navbar() {
-	const { myClass, material, handleClick, userFullName } = useHook()
-	const dropdown = useSelector((state) => state.navbar)
+function Navbar() {
+	const { myClass, material, handleClick, userFullName, isDropDown, isAside } = useHook()
+
 	return (
 		<nav className={myClass}>
 			<span className={material}>
@@ -19,7 +20,10 @@ export function Navbar() {
 					</span>
 				</li>
 			</ul>
-			{dropdown.isDropDown && <NavbarDropDown />}
+			{isDropDown && <NavbarDropDown />}
+			{isAside && <Aside />}
 		</nav>
 	)
 }
+
+export default React.memo(Navbar)

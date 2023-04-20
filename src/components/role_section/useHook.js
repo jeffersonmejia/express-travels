@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toggleSection } from '../../redux/features/section'
 
 export function useHook() {
-	const { sections } = useSelector((state) => state)
+	const sections = useSelector((state) => state.sections)
 	const dispatch = useDispatch()
 
 	const handleClick = (evt) => {

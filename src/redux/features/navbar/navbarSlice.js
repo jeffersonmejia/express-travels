@@ -7,10 +7,10 @@ export const navbar = createSlice({
 	initialState,
 	reducers: {
 		toggleDropdown: (state) => {
-			state.isDropDown = state.isDropDown ? false : true
+			state.isDropDown = !state.isDropDown
 		},
 		toggleAside: (state) => {
-			state.isAside = state.isAside ? false : true
+			state.isAside = !state.isAside
 		},
 	},
 })

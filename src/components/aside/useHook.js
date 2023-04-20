@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 
 export function useHook() {
 	const dispatch = useDispatch()
-	const { roleName } = useSelector((state) => state.user)
+	const roleName = useSelector((state) => state.user.roleName)
 	const handleClick = () => dispatch(toggleAside())
 
 	useEffect(() => {
