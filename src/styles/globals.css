@@ -57,10 +57,14 @@ input {
 	border: var(--border-light);
 	outline-color: var(--button-bg-color);
 	color: var(--input-bg-color);
+	padding-right: 0;
 }
 
 select {
 	border: var(--border-light);
+	outline-color: var(--button-bg-color);
+	color: var(--placehoder);
+	background-color: inherit;
 }
 
 input::placeholder {
@@ -86,16 +90,41 @@ form {
 
 legend {
 	margin: 16px 0;
-	text-align: center;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 	margin: 32px 0;
+	width: 100%;
 }
-
+.group-btn {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	align-items: center;
+}
+.group-btn :is(input[type='reset'], input[type='button']) {
+	cursor: pointer;
+	height: fit-content;
+	width: fit-content;
+	font-weight: bold;
+	color: var(--reading-text-color);
+	background-color: transparent;
+	border: none;
+}
+.group-btn :is(input[type='reset'], input[type='button']):hover {
+	text-decoration: underline;
+}
+.group-btn button {
+	margin-left: auto;
+}
 .error {
 	color: var(--danger);
 	animation: opacity 0.3s ease-in;
+	grid-column: 1/-1;
+	display: flex;
+	gap: 8px;
+}
+.error span {
+	font-size: 1rem;
 }
 .opacity {
 	animation: opacity 0.3s ease-in;
@@ -104,7 +133,9 @@ legend {
 .transform_x {
 	animation: transform_x 0.3s ease-in;
 }
-
+.hidden {
+	display: none;
+}
 @keyframes opacity {
 	from {
 		opacity: 0;

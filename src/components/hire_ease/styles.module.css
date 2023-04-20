@@ -1,0 +1,61 @@
+.hire {
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+	height: 70vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.hire form {
+	background-color: var(--card-bg-color);
+	display: flex;
+	flex-direction: column;
+}
+.hire form > fieldset:not(:last-child) {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.hire fieldset > fieldset {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 12px;
+}
+
+.hire legend {
+	margin: 0;
+	padding: 0;
+	padding-top: 4px;
+	padding-bottom: 20px;
+}
+.hire h1 {
+	text-align: left;
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+.hire fieldset > fieldset:nth-child(4) {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.hire fieldset > fieldset:nth-child(4) input {
+	flex-grow: 1;
+}
+.hire fieldset label {
+	margin-top: 6px;
+	margin-bottom: 12px;
+	margin-left: 4px;
+	width: 100%;
+}
+.hire form > fieldset:last-child {
+	margin-top: 12px;
+}
+
+.hire button {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	max-width: 120px;
+	margin-left: auto;
+}

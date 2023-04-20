@@ -1,8 +1,12 @@
-import styles from './styles.module.css'
 import { useSelector } from 'react-redux'
+import { COMPONENT_BY_ROLE } from '../../utils/sectionByRole'
 
 export function useHook() {
-	const myClass = styles.role_dash
 	const { sections } = useSelector((state) => state)
-	return { myClass }
+	const { userId } = useSelector((state) => state.user)
+	if (!userId) return { component: null }
+
+	const authorized = COMPONENT_BY_ROLE[sections.roleId]
+	const component = authorized[sections.actionActive]
+	return { component }
 }
