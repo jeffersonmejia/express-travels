@@ -1,6 +1,6 @@
 import { useHook } from './useHook'
 
-export function HirePersonal({ error }) {
+export function HirePersonal({ form }) {
 	return (
 		<fieldset>
 			<legend>
@@ -15,10 +15,11 @@ export function HirePersonal({ error }) {
 					inputMode="numeric"
 				/>
 				<input type="text" name="name" placeholder="Nombres completos" maxLength="32" />
-				<label className={error?.dni || error?.name ? 'error' : 'hidden'}>
+				<label className={form.error?.dni || form.error?.name ? 'error' : 'hidden'}>
 					<span className="material-symbols-outlined">info</span>
 					<small>
-						{(error?.dni && 'Cédula incorrecta') || (error?.name && 'Nombre incorrecto')}
+						{(form.error?.dni && 'Cédula incorrecta') ||
+							(form.error?.name && 'Nombre incorrecto')}
 					</small>
 				</label>
 			</fieldset>
@@ -30,12 +31,12 @@ export function HirePersonal({ error }) {
 					maxLength="32"
 				/>
 				<input type="tel" name="tel" placeholder="Teléfono celular" maxLength="10" />
-				<label className={error?.lastname || error?.tel ? 'error' : 'hidden'}>
+				<label className={form.error?.lastname || form.error?.tel ? 'error' : 'hidden'}>
 					<span className="material-symbols-outlined">info</span>
 
 					<small>
-						{(error?.lastname && 'Apellido incorrecto') ||
-							(error?.tel && 'Telefono incorrecto')}
+						{(form.error?.lastname && 'Apellido incorrecto') ||
+							(form.error?.tel && 'Telefono incorrecto')}
 					</small>
 				</label>
 			</fieldset>
@@ -48,11 +49,13 @@ export function HirePersonal({ error }) {
 					<option value="3">@outlook.com</option>
 				</select>
 
-				<label className={error?.email || error?.email_domain ? 'error' : 'hidden'}>
+				<label
+					className={form.error?.email || form.error?.email_domain ? 'error' : 'hidden'}
+				>
 					<span className="material-symbols-outlined">info</span>
 					<small>
-						{(error?.email && 'Correo incorrecto') ||
-							(error?.email_domain && 'Selecciona un dominio de correo')}
+						{(form.error?.email && 'Correo incorrecto') ||
+							(form.error?.email_domain && 'Selecciona un dominio de correo')}
 					</small>
 				</label>
 			</fieldset>

@@ -18,6 +18,7 @@
 	--section-bg-color: rgb(201, 226, 247);
 	--section-hover-color: rgb(187, 218, 243);
 	--section-text-color: rgb(36, 143, 230);
+	--disabled: rgb(131, 131, 131);
 }
 
 * {
@@ -132,6 +133,12 @@ legend {
 
 .transform_x {
 	animation: transform_x 0.3s ease-in;
+}
+button:disabled {
+	background-color: var(--disabled);
+}
+button:disabled:hover {
+	cursor: not-allowed;
 }
 .hidden {
 	display: none;
