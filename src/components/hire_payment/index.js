@@ -1,7 +1,10 @@
 export function HirePayment({ form }) {
 	return (
 		<fieldset>
-			<legend>Método de pago</legend>
+			<legend>
+				<h1>Contratar personal</h1>
+				<h4>Método de pago</h4>
+			</legend>
 			<fieldset>
 				<input
 					type="text"

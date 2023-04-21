@@ -27,7 +27,15 @@ export function useHook() {
 	}, [error])
 
 	useEffect(() => {
-		if (flags.payment) {
+		if (flags.completed) {
+			setForm((prev) => {
+				const updatedEmail = prev.email + prev.email_domain
+				const updatedForm = { ...prev, email: updatedEmail }
+				delete updatedForm.email_domain
+				console.log(JSON.stringify(updatedForm))
+				return updatedForm
+			})
+		} else if (flags.payment) {
 			setButton('Confimar')
 			return
 		} else if (flags.data) {
