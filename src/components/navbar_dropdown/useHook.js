@@ -30,7 +30,7 @@ export function useHook() {
 			setTimeout(() => setLoading(initialState), 2500)
 		}
 	}
-	const myClass = styles.dropdown
+	const myClass = `${styles.dropdown} transform_y`
 	const material = 'material-symbols-outlined'
 	return { myClass, material, handleClick, loading }
 }

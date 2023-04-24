@@ -3,7 +3,8 @@ import { HirePersonal } from '../hire_personal'
 import { HirePayment } from '../hire_payment'
 
 export function HireEase() {
-	const { myClass, handleSubmit, handleClick, flags, form, button } = useHook()
+	const { myClass, handleSubmit, handleClick, flags, form, button, apiResponse } =
+		useHook()
 	return (
 		<section className={myClass}>
 			<form onSubmit={handleSubmit}>
@@ -16,8 +17,7 @@ export function HireEase() {
 								<b>{form.fieldset.name}</b>
 								<br />
 							</span>
-							Ha sido contratado con éxito. El afiliado recibirá un correo con su usuario
-							y contraseña.
+							{apiResponse}
 						</p>
 					</fieldset>
 				)}

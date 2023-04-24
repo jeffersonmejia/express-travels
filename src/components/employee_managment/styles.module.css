@@ -1,0 +1,17 @@
+.section form {
+	background-color: var(--card-bg-color);
+	max-width: 700px;
+	margin: 16px auto;
+}
+
+.section form > fieldset {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+}
+.section form > fieldset fieldset:last-child {
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}

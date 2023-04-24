@@ -15,6 +15,9 @@
 	--navbar-height: 50px;
 	--main-font: 'Nunito Sans', sans-serif;
 	--danger: red;
+	--success: green;
+	--btn-secondary: rgb(131, 189, 176);
+	--btn-danger: rgb(247, 150, 150);
 	--section-bg-color: rgb(201, 226, 247);
 	--section-hover-color: rgb(187, 218, 243);
 	--section-text-color: rgb(36, 143, 230);
@@ -83,6 +86,7 @@ fieldset {
 }
 
 form {
+	background-color: var(--card-bg-color);
 	border: var(--border-light);
 	border-radius: var(--border-radius-container);
 	padding: 24px 32px;
@@ -96,6 +100,66 @@ legend {
 	gap: 4px;
 	margin: 32px 0;
 	width: 100%;
+}
+legend h1 {
+	font-weight: 400;
+}
+legend h4 {
+	font-weight: 400;
+	color: rgb(167, 167, 167);
+}
+table {
+	width: 100%;
+	text-align: right;
+	border-collapse: collapse;
+	background-color: var(--card-bg-color);
+	color: var(--reading-text-color);
+	font-size: 0.8rem;
+}
+
+caption {
+	background-color: var(--card-bg-color);
+	border: var(--border-light);
+	border-bottom: none;
+	padding: 4px 0;
+	font-weight: bold;
+}
+th,
+td {
+	border: var(--border-light);
+}
+th {
+	padding: 2px 8px 2px 0;
+}
+td {
+	padding: 0px 8px 0px 0px;
+}
+th:last-child {
+	text-align: center;
+	padding-right: 0;
+	padding-left: 0;
+}
+.table-actions {
+	text-align: center;
+	padding: 8px 0;
+}
+.table-actions > div {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+}
+.table-actions small {
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	cursor: pointer;
+	background-color: rgb(242, 242, 242);
+}
+.table-actions span {
+	font-size: 1.2rem;
 }
 .group-btn {
 	display: grid;
@@ -134,12 +198,17 @@ legend {
 .transform_x {
 	animation: transform_x 0.3s ease-in;
 }
+
+.transform_y {
+	animation: transform_y 0.3s ease-in;
+}
 button:disabled {
 	background-color: var(--disabled);
 }
 button:disabled:hover {
 	cursor: not-allowed;
 }
+
 .hidden {
 	display: none;
 }
@@ -156,6 +225,17 @@ button:disabled:hover {
 	from {
 		opacity: 0;
 		transform: translateX(-200px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes transform_y {
+	from {
+		opacity: 0;
+		transform: translatey(-2px);
 	}
 	to {
 		opacity: 1;

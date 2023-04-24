@@ -1,15 +1,6 @@
-import { useState } from 'react'
-import styles from './styles.module.css'
+import { useGetRolesQuery } from '../../redux/features/roles/rolesAPI'
 
-const INITIAL_STATE = {
-	dni: 'Cédula inválida',
-	name: 'Nombre inválido',
-	lastname: 'Apellido inválido',
-	tel: 'Teléfono inválido',
-	email: 'Correo electrónico inválido',
-	email_domain: 'Selecciona un dominio de correo válido',
-}
 export function useHook() {
-	const [errorHelper, setErrorHelper] = useState(INITIAL_STATE)
-	return { errorHelper }
+	const data = useGetRolesQuery().data
+	return { isRoles: data?.success, roles: data?.result }
 }

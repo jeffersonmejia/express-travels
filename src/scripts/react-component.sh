@@ -20,7 +20,6 @@ HOOK="$DIR/useHook.js"
 STYLES_IMPORT="\"./styles.module.css\""
 
 mkdir $DIR
-touch $STYLES $INDEX $HOOK
-echo -e "import styles from $STYLES_IMPORT\n" > $HOOK
+cp .template* -r $DIR
 echo "Component $component_name created successfully"
 

@@ -1,4 +1,5 @@
 import { HireEase } from '../components/hire_ease'
+import { EmployeeManagment } from '../components/employee_managment'
 
 const ACTION_DEFAULT = 0
 let temp_key = 0
@@ -57,5 +58,8 @@ export const sectionByRole = [
 ]
 
 export const COMPONENT_BY_ROLE = {
-	[ROLES.HUMAN_SOURCES]: [<HireEase key={temp_key++} />],
+	[ROLES.HUMAN_SOURCES]: [
+		<HireEase key={temp_key++} />,
+		<EmployeeManagment key={temp_key++} />,
+	],
 }

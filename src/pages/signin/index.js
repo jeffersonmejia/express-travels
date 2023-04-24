@@ -6,8 +6,8 @@ export default function Signin() {
 			<form onSubmit={handleSubmit}>
 				<fieldset>
 					<legend>
-						<h2>Ingreso</h2>
-						<p>Solo personal autorizado</p>
+						<h1>Ingreso</h1>
+						<h4>Solo personal autorizado</h4>
 					</legend>
 					<input
 						type="text"

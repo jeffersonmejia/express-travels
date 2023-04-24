@@ -1,6 +1,7 @@
 import { useHook } from './useHook'
 
 export function HirePersonal({ form }) {
+	const { isRoles, roles } = useHook()
 	return (
 		<fieldset>
 			<legend>
@@ -16,14 +17,19 @@ export function HirePersonal({ form }) {
 					inputMode="numeric"
 				/>
 				<select name="role">
-					<option value="0">Selecciona un rol</option>
-					<option value="1">--</option>
+					<option value="-1">Selecciona un rol</option>
+					{isRoles &&
+						roles.map((role) => (
+							<option value={role.role_range} key={role.role_range}>
+								{role.role_name}
+							</option>
+						))}
 				</select>
 				<label className={form.error?.dni || form.error?.role ? 'error' : 'hidden'}>
 					<span className="material-symbols-outlined">info</span>
 					<small>
 						{(form.error?.dni && 'Cédula incorrecta') ||
-							(form.error?.name && 'Selecciona u rol')}
+							(form.error?.role && 'Selecciona un rol')}
 					</small>
 				</label>
 			</fieldset>
@@ -53,10 +59,10 @@ export function HirePersonal({ form }) {
 			<fieldset>
 				<input type="text" name="email" placeholder="Correo electrónico" maxLength="16" />
 				<select name="email_domain">
-					<option value="0">--</option>
-					<option value="1">@gmail.com</option>
-					<option value="2">@hotmail.com</option>
-					<option value="3">@outlook.com</option>
+					<option value="-1">--</option>
+					<option value="0">@gmail.com</option>
+					<option value="1">@hotmail.com</option>
+					<option value="2">@outlook.com</option>
 				</select>
 				<label
 					className={form.error?.email || form.error?.email_domain ? 'error' : 'hidden'}

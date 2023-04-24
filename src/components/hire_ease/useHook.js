@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-
+import { useSignupMutation } from '../../redux/features/auth/authAPI'
 const INITIAL_FLAGS = {
 	data: false,
 	payment: false,
@@ -13,6 +13,8 @@ export function useHook() {
 	const [form, setForm] = useState(INITIAL_FORM)
 	const [flags, setFlags] = useState(INITIAL_FLAGS)
 	const [button, setButton] = useState('Siguiente')
+	const [apiResponse, setApiResponse] = useState(null)
+	const [signup] = useSignupMutation()
 
 	useEffect(() => {
 		if (!error) return
@@ -32,7 +34,7 @@ export function useHook() {
 				const updatedEmail = prev.email + prev.email_domain
 				const updatedForm = { ...prev, email: updatedEmail }
 				delete updatedForm.email_domain
-				console.log(JSON.stringify(updatedForm))
+				signupEmployee(updatedEmail)
 				return updatedForm
 			})
 		} else if (flags.payment) {
@@ -47,6 +49,11 @@ export function useHook() {
 		}
 	}, [flags])
 
+	const signupEmployee = async () => {
+		const response = await signup(form)
+		const { data } = response.error ? response.error : response
+		setApiResponse(data.message)
+	}
 	const handleSubmit = (event) => {
 		event.preventDefault()
 		const form = event.target.elements
@@ -73,25 +80,21 @@ export function useHook() {
 	}
 
 	const updateSelectState = (set) => {
-		const isEmpty = set.value < 1
+		const isEmpty = set.value < 0
 		if (isEmpty) {
 			setError((prev) => ({ ...prev, [set.name]: true }))
 		} else {
 			setError((prev) => ({ ...prev, [set.name]: false }))
-			setForm((prev) => ({ ...prev, [set.name]: set[set.value].textContent }))
+			setForm((prev) => ({
+				...prev,
+				[set.name]: set.name === 'role' ? set.value : set[set.selectedIndex].textContent,
+			}))
 		}
 	}
 
 	const handleClick = () => {
-		if (flags.completed) {
-			setFlags(INITIAL_FLAGS)
-			setForm(INITIAL_FORM)
-			setError(INITIAL_ERROR)
-			return
-		}
-		if (flags.data) {
-			setFlags((prev) => ({ ...prev, data: false, payment: false }))
-		}
+		setFlags(INITIAL_FLAGS)
+		setForm(INITIAL_FORM)
 		setError(INITIAL_ERROR)
 	}
 
@@ -103,5 +106,6 @@ export function useHook() {
 		handleClick,
 		button,
 		form: { fieldset: form, error },
+		apiResponse,
 	}
 }

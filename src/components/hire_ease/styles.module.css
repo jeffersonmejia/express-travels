@@ -2,14 +2,13 @@
 	width: 100%;
 	max-width: 500px;
 	margin: auto;
-	height: 75vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	margin-top: 32px;
 }
 
 .hire form {
-	background-color: var(--card-bg-color);
 	display: flex;
 	flex-direction: column;
 }
@@ -31,15 +30,9 @@
 	padding-bottom: 20px;
 }
 .hire h1 {
-	text-align: left;
-	font-size: 1.5rem;
-	font-weight: 400;
 	margin-bottom: 8px;
 }
-.hire h4 {
-	font-weight: 400;
-	color: rgb(167, 167, 167);
-}
+
 .hire fieldset > fieldset:nth-child(4) {
 	display: flex;
 }

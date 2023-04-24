@@ -1,0 +1,7 @@
+.query_result {
+	display: flex;
+	justify-content: center;
+}
+.query_result table {
+	max-width: 700px;
+}
