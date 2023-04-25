@@ -1,25 +1,49 @@
 #!/bin/bash
-echo "Type the name component, ex: my_component"
-read component_name
+clear
+function print_help {
+	echo "Use: npm run rc [component_name]"
+}
 
-if ! [ -n "$component_name" ]; then
-  echo "Ingresa un nombre válido"
+if [ -z "$1" ]; then
+	clear
+	echo "Error: Must type the component name"
+	print_help
 	exit 1
-elif echo "$component_name" | grep -q " "; then
-  echo "No se permite el uso de espacios"
-	echo "Utiliza '_' en su lugar"
+fi
+
+if ! [[ "$1" =~ ^[a-z]+(_[a-z]+)*$ ]]; then
+	clear
+	echo "Error: Component must have uppercase format"
+	print_help
 	exit 1
-  fi
+fi
 
-COMPONENTS_DIR="src/components"
-DIR="$COMPONENTS_DIR/$component_name"
+component_name=$(echo "$1" | sed 's/_\([a-z]\)/\U\1/g' | sed 's/^[a-z]/\U&/')
 
-STYLES="$DIR/styles.module.css"
-INDEX="$DIR/index.js"
-HOOK="$DIR/useHook.js"
-STYLES_IMPORT="\"./styles.module.css\""
+dir="src/components/$1"
+css="$dir/styles.module.css"
+hook="$dir/useHook.js"
+index="$dir/index.js"
 
-mkdir $DIR
-cp .template* -r $DIR
-echo "Component $component_name created successfully"
+mkdir "$dir"
+echo ".component{
+	background-color:rgb(245,245,245);
+}" > $css
+echo "import styles from './styles.module.css'
+
+export function useHook(){
+	myClass = styles.component
+	return {myClass}
+}" > $hook
+
+echo "import {useHook} from './useHook.js'
+
+export function $component_name(){
+	const {myClass} = useHook
+
+	return <div className={myClass}>Hello world!</div>
+}" > $index
+
+clear
+echo "Component $1 created successfully: $dir"
 
