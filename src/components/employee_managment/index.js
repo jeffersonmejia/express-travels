@@ -1,11 +1,11 @@
 import { useHook } from './useHook'
-import { EmployeeManagmentTable } from '../employee_managment_table/.templates'
+import { EmployeeManagmentTable } from '../employee_managment_table/'
 
 export function EmployeeManagment() {
-	const { myClass } = useHook()
+	const { myClass, handleSubmit, users, error, loading } = useHook()
 	return (
 		<section className={myClass}>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<fieldset>
 					<legend>
 						<h1>Gestión de personal</h1>
@@ -13,18 +13,19 @@ export function EmployeeManagment() {
 					</legend>
 					<fieldset>
 						<label>Desde</label>
-						<input type="date" />
+						<input type="date" name="since" />
 					</fieldset>
 					<fieldset>
 						<label>hasta</label>
-						<input type="date" />
+						<input type="date" name="until" />
 					</fieldset>
 					<fieldset>
-						<button>Consultar</button>
+						<button>{loading ? 'Consultando...' : 'Consultar'}</button>
 					</fieldset>
 				</fieldset>
+				<small>{error}</small>
 			</form>
-			<EmployeeManagmentTable />
+			{users.length > 1 && <EmployeeManagmentTable users={users} />}
 		</section>
 	)
 }

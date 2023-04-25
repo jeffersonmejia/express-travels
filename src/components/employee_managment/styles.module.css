@@ -1,9 +1,18 @@
+.section {
+	width: 100%;
+}
 .section form {
 	background-color: var(--card-bg-color);
 	max-width: 700px;
 	margin: 16px auto;
+	margin-bottom: 2rem;
 }
-
+.section label {
+	font-size: 0.9rem;
+	padding-bottom: 8px;
+	padding-left: 4px;
+	color: var(--reading-text-color);
+}
 .section form > fieldset {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
