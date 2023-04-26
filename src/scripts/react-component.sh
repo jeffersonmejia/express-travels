@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+
 function print_help {
 	echo "Use: npm run rc [component_name]"
 }
@@ -33,17 +34,18 @@ echo "import styles from './styles.module.css'
 
 export function useHook(){
 	myClass = styles.component
-	return {myClass}
+	return { myClass }
 }" > $hook
 
-echo "import {useHook} from './useHook.js'
+echo "import { useHook } from './useHook.js'
 
 export function $component_name(){
-	const {myClass} = useHook
+	const { myClass } = useHook()
 
 	return <div className={myClass}>Hello world!</div>
 }" > $index
 
 clear
 echo "Component $1 created successfully: $dir"
+code "$index"
 
