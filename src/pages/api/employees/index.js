@@ -19,12 +19,42 @@ async function queryRoles(since, until) {
 	}
 }
 
+async function deleteUser(id) {
+	try {
+		const query = {
+			text: `delete FROM customers where customer_id=$1;`,
+			values: [id],
+		}
+		const result = await queryDB(query)
+		if (!result)
+			throw {
+				success: false,
+				message: 'Lo sentimos, no se ha podido procesar la solicitud, intente más tarde.',
+			}
+		return { success: true, message: 'Borrado con éxito' }
+	} catch (error) {
+		return error
+	}
+}
+
 export default async function handler(req, res) {
-	console.log(req.method)
 	const isAuth = authHandler(req.cookies)
 	if (!isAuth.success) {
 		res.status(400).json(isUserAuth.result)
 		return
+	}
+	if (req.method === 'DELETE') {
+		console.log()
+		const { id } = req.query
+		if (!id)
+			return res.status(404).json({ message: 'Petición rechazada, no se encontró el id' })
+
+		const result = await deleteUser(id)
+		if (!result.success) {
+			res.status(404).json({ message: result.message })
+			return
+		}
+		return res.status(200).json(result)
 	}
 	if (req.method === 'POST') {
 		const { since, until } = req.body
@@ -38,10 +68,6 @@ export default async function handler(req, res) {
 			return
 		}
 		return res.status(200).json(result)
-	}
-	if (req.method === 'DELETE') {
-		console.log(req.params)
-		return res.status(200).json({ message: 'ok' })
 	}
 	return res.status(404).json({ message: 'Método no permitido, petición rechazada' })
 }

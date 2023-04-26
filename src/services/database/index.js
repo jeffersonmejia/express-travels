@@ -19,3 +19,19 @@ export async function queryDB(query, rolePassword) {
 		return db_response
 	}
 }
+
+export async function queryDatabase(query, isRowRequired) {
+	let client
+	try {
+		client = dbConnection()
+		const db_response = await client.query(query)
+		const { rows } = db_response
+
+		if (isRowRequired && rows.length < 1) throw `Datos consultados: ${rows.length}`
+		return { success: true, message: 'ok', rows }
+	} catch (db_error) {
+		return { success: false, message: `error - ${db_error}` }
+	} finally {
+		if (client) client.end()
+	}
+}

@@ -8,7 +8,8 @@
 		"start": "next start",
 		"lint": "next lint",
 		"rc": "src/scripts/react-component.sh",
-		"gh": "src/scripts/git-remote.sh"
+		"gh": "src/scripts/git-remote.sh",
+		"api": "src/scripts/create-api.sh"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.3",
