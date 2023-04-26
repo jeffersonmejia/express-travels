@@ -2,7 +2,7 @@ import { useHook } from './useHook'
 import { EmployeeManagmentTable } from '../employee_managment_table/'
 
 export function EmployeeManagment() {
-	const { myClass, handleSubmit, users, error, loading, defaultDate } = useHook()
+	const { myClass, handleSubmit, usersQuery, error, loading, defaultDate } = useHook()
 
 	return (
 		<section className={myClass}>
@@ -18,7 +18,7 @@ export function EmployeeManagment() {
 							type="date"
 							name="since"
 							disabled={loading}
-							defaultValue={defaultDate}
+							defaultValue={defaultDate.start}
 						/>
 					</fieldset>
 					<fieldset>
@@ -27,7 +27,7 @@ export function EmployeeManagment() {
 							type="date"
 							name="until"
 							disabled={loading}
-							defaultValue={defaultDate}
+							defaultValue={defaultDate.end}
 						/>
 					</fieldset>
 					<fieldset>
@@ -36,7 +36,7 @@ export function EmployeeManagment() {
 				</fieldset>
 				{error && <small className="error">{error}</small>}
 			</form>
-			{users.length > 1 && <EmployeeManagmentTable users={users} />}
+			{usersQuery.length > 1 && <EmployeeManagmentTable usersQuery={usersQuery} />}
 		</section>
 	)
 }

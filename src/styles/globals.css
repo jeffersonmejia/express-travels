@@ -172,13 +172,13 @@ tfoot:last-child td {
 .table-actions small {
 	width: 100%;
 	display: flex;
-	background-color: rgb(230, 230, 230);
-	gap: 2px;
-	border-radius: var(--border-radius-button);
 	align-items: center;
 	justify-content: center;
+	background-color: rgb(230, 230, 230);
+	border-radius: var(--border-radius-button);
 	cursor: pointer;
-	padding: 4px 8px;
+	padding: 4px 12px;
+	min-width: 60px;
 }
 tr:not(:nth-child(2n)) small:hover {
 	background-color: rgb(235, 235, 235);

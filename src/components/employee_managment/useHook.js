@@ -2,22 +2,39 @@ import styles from './styles.module.css'
 import { useGetEmployeesMutation } from '../../redux/features/employees/employeesAPI'
 import { useEffect, useRef, useState } from 'react'
 
-const toMiliseconds = 60000
-const getCurrentDate = () => {
+const toMilliseconds = 60000
+
+const getDates = () => {
 	const currentDate = new Date()
-	const currentTime = currentDate.getTime()
 	const currentTZ = currentDate.getTimezoneOffset()
-	const diffTime = currentTime + currentTZ * toMiliseconds
-	const adjustedDate = new Date(diffTime)
-	const dateISO = adjustedDate.toISOString()
-	const defaultDate = dateISO.slice(0, 10)
-	return defaultDate
+
+	// end date with ISO format
+	const currentDateISO = currentDate.toISOString()
+	const currentDateFormatted = currentDateISO.slice(0, 10)
+
+	//start date with ISO format
+	const currentYear = currentDate.getFullYear()
+	const currentMonth = currentDate.getMonth()
+	const firstDayOfMonth = new Date(currentYear, currentMonth, 1)
+	const firstDayOfMonthTZ = firstDayOfMonth.getTimezoneOffset()
+	const diffFirstDayOfMonth =
+		firstDayOfMonth.getTime() +
+		firstDayOfMonthTZ * toMilliseconds -
+		currentTZ * toMilliseconds
+	const firstDayOfMonthAdjusted = new Date(diffFirstDayOfMonth)
+	const firstDayOfMonthISO = firstDayOfMonthAdjusted.toISOString()
+	const firstDayOfMonthFormatted = firstDayOfMonthISO.slice(0, 10)
+
+	return {
+		start: firstDayOfMonthFormatted,
+		end: currentDateFormatted,
+	}
 }
 
 export function useHook() {
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const [users, setUsers] = useState([])
+	const [usersQuery, setUsers] = useState([])
 	const [date, setDate] = useState(null)
 	const [getEmployees] = useGetEmployeesMutation()
 	const myClass = styles.section
@@ -68,8 +85,8 @@ export function useHook() {
 		handleSubmit,
 		date,
 		error,
-		users,
+		usersQuery,
 		loading,
-		defaultDate: getCurrentDate(),
+		defaultDate: getDates(),
 	}
 }

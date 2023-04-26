@@ -13,6 +13,12 @@ export const employeesAPI = createApi({
 				body: date,
 			}),
 		}),
+		deleteEmployee: builder.mutation({
+			query: (id) => ({
+				url: `api/employees?id=${id}`,
+				method: 'DELETE',
+			}),
+		}),
 	}),
 })
-export const { useGetEmployeesMutation } = employeesAPI
+export const { useGetEmployeesMutation, useDeleteEmployeeMutation } = employeesAPI
