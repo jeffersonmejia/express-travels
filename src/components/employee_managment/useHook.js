@@ -2,6 +2,18 @@ import styles from './styles.module.css'
 import { useGetEmployeesMutation } from '../../redux/features/employees/employeesAPI'
 import { useEffect, useRef, useState } from 'react'
 
+const toMiliseconds = 60000
+const getCurrentDate = () => {
+	const currentDate = new Date()
+	const currentTime = currentDate.getTime()
+	const currentTZ = currentDate.getTimezoneOffset()
+	const diffTime = currentTime + currentTZ * toMiliseconds
+	const adjustedDate = new Date(diffTime)
+	const dateISO = adjustedDate.toISOString()
+	const defaultDate = dateISO.slice(0, 10)
+	return defaultDate
+}
+
 export function useHook() {
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
@@ -40,14 +52,24 @@ export function useHook() {
 				setLoading(false)
 			}, 3000)
 		} catch (fetchError) {
-			setError(fetchError?.data?.message || 'Error interno')
-			setUsers([])
-			setTimeout(() => setError(null), 3000)
-			setLoading(false)
+			setTimeout(() => {
+				setError(fetchError?.data?.message || 'Error interno')
+				setUsers([])
+				setLoading(false)
+			}, 3000)
+			setTimeout(() => setError(null), 6000)
 		}
 	}
 	useEffect(() => {
 		if (date?.since && date?.until) queryEmployees()
 	}, [date])
-	return { myClass, handleSubmit, date, error, users, loading }
+	return {
+		myClass,
+		handleSubmit,
+		date,
+		error,
+		users,
+		loading,
+		defaultDate: getCurrentDate(),
+	}
 }

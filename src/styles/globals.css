@@ -180,10 +180,16 @@ tfoot:last-child td {
 	cursor: pointer;
 	padding: 4px 8px;
 }
-
+tr:not(:nth-child(2n)) small:hover {
+	background-color: rgb(235, 235, 235);
+}
+tr:nth-child(2n) small:hover {
+	background-color: rgb(225, 225, 225);
+}
 .table-actions span {
 	font-size: 0.9rem;
 }
+
 .group-btn {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);

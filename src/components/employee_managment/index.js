@@ -2,7 +2,8 @@ import { useHook } from './useHook'
 import { EmployeeManagmentTable } from '../employee_managment_table/'
 
 export function EmployeeManagment() {
-	const { myClass, handleSubmit, users, error, loading } = useHook()
+	const { myClass, handleSubmit, users, error, loading, defaultDate } = useHook()
+
 	return (
 		<section className={myClass}>
 			<form onSubmit={handleSubmit}>
@@ -13,17 +14,27 @@ export function EmployeeManagment() {
 					</legend>
 					<fieldset>
 						<label>Desde</label>
-						<input type="date" name="since" />
+						<input
+							type="date"
+							name="since"
+							disabled={loading}
+							defaultValue={defaultDate}
+						/>
 					</fieldset>
 					<fieldset>
 						<label>hasta</label>
-						<input type="date" name="until" />
+						<input
+							type="date"
+							name="until"
+							disabled={loading}
+							defaultValue={defaultDate}
+						/>
 					</fieldset>
 					<fieldset>
-						<button>{loading ? 'Consultando...' : 'Consultar'}</button>
+						<button disabled={loading}>{loading ? 'Consultando...' : 'Consultar'}</button>
 					</fieldset>
 				</fieldset>
-				<small>{error}</small>
+				{error && <small className="error">{error}</small>}
 			</form>
 			{users.length > 1 && <EmployeeManagmentTable users={users} />}
 		</section>
