@@ -1,13 +1,19 @@
 import styles from './styles.module.css'
 import { useDeleteEmployeeMutation } from '../../redux/features/employees/employeesAPI'
 import { useEffect, useState } from 'react'
+import { useGetRolesQuery } from '../../redux/features/roles/rolesAPI'
 
 export function useHook(usersQuery) {
 	const [users, setUsers] = useState([])
 	const [deleteUser, setDelete] = useState({ flag: false, id: null })
-	const [updateUser, setUpdate] = useState({ flag: false })
-
+	const [updateUser, setUpdate] = useState({
+		flag: false,
+		confirm: false,
+		sending: false,
+		completed: true,
+	})
 	const [deleteEmployee] = useDeleteEmployeeMutation()
+	const roles = useGetRolesQuery().data
 
 	const handleClick = (event) => {
 		const { dataset, id } = event.currentTarget
@@ -33,17 +39,34 @@ export function useHook(usersQuery) {
 		}
 		if (dataset.modalSave) {
 			event.preventDefault()
+			if (!updateUser.confirm) {
+				setUpdate((prev) => ({ ...prev, confirm: true }))
+				return
+			}
+			if (!updateUser.sending) {
+				setUpdate((prev) => ({ ...prev, sending: true }))
+				setTimeout(() => {
+					setUpdate((prev) => ({ ...prev, flag: false }))
+				}, 5000)
+				return
+			}
 			//setUpdate({ flag: false })
 		}
 	}
-	useEffect(() => {
-		console.log(users)
-	}, [users])
+
 	useEffect(() => {
 		if (usersQuery) setUsers(usersQuery)
 	}, [])
 
 	const icon = 'material-symbols-outlined'
 	const myClass = styles.query_result
-	return { myClass, icon, handleClick, users, deleteUser, updateUser }
+	return {
+		myClass,
+		icon,
+		handleClick,
+		users,
+		deleteUser,
+		updateUser,
+		roles: roles.result || [],
+	}
 }

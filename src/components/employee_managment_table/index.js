@@ -1,7 +1,7 @@
 import { useHook } from './useHook'
 
 export function EmployeeManagmentTable({ usersQuery }) {
-	const { myClass, icon, handleClick, users, deleteUser, updateUser } =
+	const { myClass, icon, handleClick, users, deleteUser, updateUser, roles } =
 		useHook(usersQuery)
 	return (
 		<article className={myClass}>
@@ -70,32 +70,50 @@ export function EmployeeManagmentTable({ usersQuery }) {
 								<input
 									type="text"
 									placeholder="Cédula de identidad"
-									value={updateUser.user.customer_dni}
+									defaultValue={updateUser.user.customer_dni}
+									disabled={updateUser.sending}
 								/>
-								<select>
-									<option>Selecciona el rol</option>
+								<select
+									defaultValue={updateUser.user.role_id}
+									disabled={updateUser.sending}
+								>
+									<option value="-1">Selecciona el rol</option>
+									{roles.length > 0 &&
+										roles.map((role) => (
+											<option value={role.role_range} key={role.role_range}>
+												{role.role_name}
+											</option>
+										))}
 								</select>
 							</fieldset>
 							<fieldset>
 								<input
 									type="text"
 									placeholder="Nombres completos"
-									value={updateUser.user.customer_name}
+									defaultValue={updateUser.user.customer_name}
+									disabled={updateUser.sending}
 								/>
 								<input
 									type="text"
 									placeholder="Apellidos completos"
-									value={updateUser.user.customer_lastname}
+									defaultValue={updateUser.user.customer_lastname}
+									disabled={updateUser.sending}
 								/>
 							</fieldset>
 							<fieldset>
 								<small>
 									<p onClick={handleClick} data-modal-cancel>
-										Cancelar
+										{!updateUser.sending && 'Cancelar'}
 									</p>
 								</small>
-								<button onClick={handleClick} data-modal-save>
-									Guardar
+								<button
+									onClick={handleClick}
+									data-modal-save
+									disabled={updateUser.sending}
+								>
+									{!updateUser.confirm && 'Guardar'}
+									{updateUser.confirm && !updateUser.sending && 'Confirmar'}
+									{updateUser.sending && 'Guardando...'}
 								</button>
 							</fieldset>
 						</fieldset>

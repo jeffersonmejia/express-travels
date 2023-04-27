@@ -9,7 +9,9 @@
 	display: flex;
 	gap: 12px;
 }
-
+.query_result div:last-child form {
+	max-width: 600px;
+}
 .query_result form > fieldset > fieldset {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
