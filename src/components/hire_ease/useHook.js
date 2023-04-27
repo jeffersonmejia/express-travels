@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { useSignupMutation } from '../../redux/features/auth/authAPI'
+import { regexTest } from '../../utils/regex'
+
 const INITIAL_FLAGS = {
 	data: false,
 	payment: false,
 	completed: false,
 }
+
 const INITIAL_FORM = null
 const INITIAL_ERROR = null
 export function useHook() {
@@ -14,6 +17,7 @@ export function useHook() {
 	const [flags, setFlags] = useState(INITIAL_FLAGS)
 	const [button, setButton] = useState('Siguiente')
 	const [apiResponse, setApiResponse] = useState(null)
+	const [tempState, setTemp] = useState(null)
 	const [signup] = useSignupMutation()
 
 	useEffect(() => {
@@ -58,6 +62,9 @@ export function useHook() {
 		event.preventDefault()
 		const form = event.target.elements
 		const formSet = Array.from(form)
+		const validated = regexTest(formSet)
+		setTemp(validated)
+
 		formSet.forEach((set) => validateField(set))
 	}
 
@@ -65,12 +72,14 @@ export function useHook() {
 		const VALID_TAGS = ['INPUT', 'SELECT']
 		const hasTags = VALID_TAGS.some((tag) => set.tagName === tag)
 		if (!hasTags) return
-		if (set.type !== 'reset') updateInputState(set)
+		if (set.type !== 'reset' && set.tagName !== 'SELECT') updateInputState(set)
 		if (set.tagName === 'SELECT') updateSelectState(set)
 	}
 
 	const updateInputState = (set) => {
 		const isEmpty = set.value.length < 1
+		//console.log(set.name, set.value)
+
 		if (isEmpty) {
 			setError((prev) => ({ ...prev, [set.name]: true }))
 		} else {
@@ -107,5 +116,6 @@ export function useHook() {
 		button,
 		form: { fieldset: form, error },
 		apiResponse,
+		tempState,
 	}
 }

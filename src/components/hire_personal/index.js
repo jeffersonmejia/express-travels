@@ -1,7 +1,9 @@
 import { useHook } from './useHook'
 
-export function HirePersonal({ form }) {
-	const { isRoles, roles } = useHook()
+export function HirePersonal({ form, tempState }) {
+	const { isRoles, roles, icon } = useHook()
+
+	console.log(tempState)
 	return (
 		<fieldset>
 			<legend>
@@ -25,13 +27,22 @@ export function HirePersonal({ form }) {
 							</option>
 						))}
 				</select>
-				<label className={form.error?.dni || form.error?.role ? 'error' : 'hidden'}>
-					<span className="material-symbols-outlined">info</span>
-					<small>
-						{(form.error?.dni && 'Cédula incorrecta') ||
-							(form.error?.role && 'Selecciona un rol')}
-					</small>
-				</label>
+
+				{tempState?.dni && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.dni.isEmpty && 'La cédula no puede estar vacía'}
+							{tempState.dni.isInvalid && 'La cédula ingresada es inválida'}
+						</small>
+					</label>
+				)}
+				{!tempState?.dni && tempState?.role && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>{tempState.role.isEmpty && 'Selecciona un rol válido'}</small>
+					</label>
+				)}
 			</fieldset>
 			<fieldset>
 				<input type="text" name="name" placeholder="Nombres completos" maxLength="32" />
@@ -41,20 +52,36 @@ export function HirePersonal({ form }) {
 					placeholder="Apellidos completos"
 					maxLength="32"
 				/>
-				<label className={form.error?.name || form.error?.lastname ? 'error' : 'hidden'}>
-					<span className="material-symbols-outlined">info</span>
-					<small>
-						{(form.error?.name && 'Nombre incorrecto') ||
-							(form.error?.lastname && 'Apellido incorrecto')}
-					</small>
-				</label>
+				{tempState?.name && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.name.isEmpty && 'El nombre no puede estar vacío'}
+							{tempState.name.isInvalid && 'El nombre ingresado es inválido'}
+						</small>
+					</label>
+				)}
+				{!tempState?.name && tempState?.lastname && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.lastname.isEmpty && 'El apellido no puede estar vacío'}
+							{tempState.lastname.isInvalid && 'El apellido ingresado es inválido'}
+						</small>
+					</label>
+				)}
 			</fieldset>
 			<fieldset>
 				<input type="tel" name="tel" placeholder="Teléfono celular" maxLength="10" />
-				<label className={form.error?.tel ? 'error' : 'hidden'}>
-					<span className="material-symbols-outlined">info</span>
-					<small>{form.error?.tel && 'Telefono incorrecto'}</small>
-				</label>
+				{tempState?.tel && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.tel.isEmpty && 'El teléfono celular no puede estar vacío'}
+							{tempState.tel.isInvalid && 'El teléfono celular ingresado es inválido'}
+						</small>
+					</label>
+				)}
 			</fieldset>
 			<fieldset>
 				<input type="text" name="email" placeholder="Correo electrónico" maxLength="16" />
@@ -64,28 +91,45 @@ export function HirePersonal({ form }) {
 					<option value="1">@hotmail.com</option>
 					<option value="2">@outlook.com</option>
 				</select>
-				<label
-					className={form.error?.email || form.error?.email_domain ? 'error' : 'hidden'}
-				>
-					<span className="material-symbols-outlined">info</span>
-					<small>
-						{(form.error?.email && 'Correo incorrecto') ||
-							(form.error?.email_domain && 'Selecciona un dominio de correo')}
-					</small>
-				</label>
+				{tempState?.email && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.email.isEmpty && 'El correo electrónico no puede estar vacío'}
+							{tempState.email.isInvalid && 'El correo electrónico ingresado es inválido'}
+						</small>
+					</label>
+				)}
+				{!tempState?.email && tempState?.email_domain && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.email_domain.isEmpty && 'Selecciona un dominio de correo válido'}
+						</small>
+					</label>
+				)}
 			</fieldset>
 			<fieldset>
 				<input type="text" name="address1" placeholder="Calle 1" />
 				<input type="text" name="address2" placeholder="Calle 2" />
-				<label
-					className={form.error?.address1 || form.error?.address2 ? 'error' : 'hidden'}
-				>
-					<span className="material-symbols-outlined">info</span>
-					<small>
-						{(form.error?.address1 && 'Calle 1 incorrecta') ||
-							(form.error?.address2 && 'Calle 2 incorrecta')}
-					</small>
-				</label>
+				{tempState?.address1 && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.address1.isEmpty && 'La dirección 1 no puede estar vacía'}
+							{tempState.address1.isInvalid && 'La dirección 1 es inválida'}
+						</small>
+					</label>
+				)}
+				{!tempState?.address1 && tempState?.address2 && (
+					<label className="error">
+						<span className={icon}>info</span>
+						<small>
+							{tempState.address2.isEmpty && 'La dirección 2 no puede estar vacía'}
+							{tempState.address2.isInvalid && 'La dirección 2 es inválida'}
+						</small>
+					</label>
+				)}
 			</fieldset>
 		</fieldset>
 	)
