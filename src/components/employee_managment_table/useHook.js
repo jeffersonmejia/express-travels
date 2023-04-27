@@ -5,15 +5,14 @@ import { useEffect, useState } from 'react'
 export function useHook(usersQuery) {
 	const [users, setUsers] = useState([])
 	const [deleteUser, setDelete] = useState({ flag: false, id: null })
+	const [updateUser, setUpdate] = useState({ flag: false })
 
 	const [deleteEmployee] = useDeleteEmployeeMutation()
 
 	const handleClick = (event) => {
 		const { dataset, id } = event.currentTarget
 		const parsedID = parseInt(id)
-		if (dataset.edit) {
-			console.log('edit')
-		} else {
+		if (dataset.delete) {
 			if (deleteUser.flag && deleteUser.id === parsedID) {
 				setUsers((prev) => {
 					return prev.filter((el) => el.customer_id !== parsedID)
@@ -22,6 +21,19 @@ export function useHook(usersQuery) {
 				return
 			}
 			setDelete({ flag: true, id: parsedID })
+			return
+		} else if (dataset.edit) {
+			const userCopy = users.filter((user) => user.customer_id === parsedID)
+			setUpdate({ flag: true, user: userCopy[0] })
+			return
+		}
+		if (dataset.modalCancel) {
+			setUpdate({ flag: false })
+			return
+		}
+		if (dataset.modalSave) {
+			event.preventDefault()
+			//setUpdate({ flag: false })
 		}
 	}
 	useEffect(() => {
@@ -33,5 +45,5 @@ export function useHook(usersQuery) {
 
 	const icon = 'material-symbols-outlined'
 	const myClass = styles.query_result
-	return { myClass, icon, handleClick, users, deleteUser }
+	return { myClass, icon, handleClick, users, deleteUser, updateUser }
 }

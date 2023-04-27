@@ -1,7 +1,8 @@
 import { useHook } from './useHook'
 
 export function EmployeeManagmentTable({ usersQuery }) {
-	const { myClass, icon, handleClick, users, deleteUser } = useHook(usersQuery)
+	const { myClass, icon, handleClick, users, deleteUser, updateUser } =
+		useHook(usersQuery)
 	return (
 		<article className={myClass}>
 			<table>
@@ -57,6 +58,50 @@ export function EmployeeManagmentTable({ usersQuery }) {
 					</tr>
 				</tfoot>
 			</table>
+			{updateUser?.flag && (
+				<div className="modal">
+					<form>
+						<fieldset>
+							<legend>
+								<h1>Actualización de datos</h1>
+								<h4>personal</h4>
+							</legend>
+							<fieldset>
+								<input
+									type="text"
+									placeholder="Cédula de identidad"
+									value={updateUser.user.customer_dni}
+								/>
+								<select>
+									<option>Selecciona el rol</option>
+								</select>
+							</fieldset>
+							<fieldset>
+								<input
+									type="text"
+									placeholder="Nombres completos"
+									value={updateUser.user.customer_name}
+								/>
+								<input
+									type="text"
+									placeholder="Apellidos completos"
+									value={updateUser.user.customer_lastname}
+								/>
+							</fieldset>
+							<fieldset>
+								<small>
+									<p onClick={handleClick} data-modal-cancel>
+										Cancelar
+									</p>
+								</small>
+								<button onClick={handleClick} data-modal-save>
+									Guardar
+								</button>
+							</fieldset>
+						</fieldset>
+					</form>
+				</div>
+			)}
 		</article>
 	)
 }

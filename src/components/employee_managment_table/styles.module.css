@@ -5,3 +5,29 @@
 .query_result table {
 	max-width: 850px;
 }
+.query_result form > fieldset {
+	display: flex;
+	gap: 12px;
+}
+
+.query_result form > fieldset > fieldset {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 12px;
+}
+.query_result form > fieldset fieldset:last-child {
+	grid-column: 1/-1;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+	color: var(--reading-text-color);
+}
+.query_result form > fieldset fieldset:last-child small {
+	width: fit-content;
+	margin-left: 8px;
+	display: flex;
+	align-items: center;
+}
+.query_result form > fieldset fieldset:last-child p {
+	cursor: pointer;
+}
