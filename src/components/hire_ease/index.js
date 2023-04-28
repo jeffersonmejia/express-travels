@@ -3,23 +3,13 @@ import { HirePersonal } from '../hire_personal'
 import { HirePayment } from '../hire_payment'
 
 export function HireEase() {
-	const {
-		myClass,
-		handleSubmit,
-		handleClick,
-		flags,
-		form,
-		button,
-		apiResponse,
-		tempState,
-	} = useHook()
+	const { myClass, handleSubmit, handleClick, flags, form, button, apiResponse } =
+		useHook()
 	return (
 		<section className={myClass}>
 			<form onSubmit={handleSubmit}>
-				{!flags.data && !flags.completed && (
-					<HirePersonal form={form} tempState={tempState} />
-				)}
-				{flags.data && !flags.completed && <HirePayment form={form} />}
+				{!flags.data && !flags.completed && <HirePersonal error={form} />}
+				{flags.data && !flags.completed && <HirePayment error={form} />}
 				{flags.completed && (
 					<fieldset>
 						<p>
