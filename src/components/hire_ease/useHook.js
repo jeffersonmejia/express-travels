@@ -4,7 +4,7 @@ import { useSignupMutation } from '../../redux/features/auth/authAPI'
 import { regexTest } from '../../utils/regex'
 
 const INITIAL_FLAGS = {
-	data: false,
+	employee: false,
 	payment: false,
 	completed: false,
 }
@@ -18,14 +18,21 @@ export function useHook() {
 
 	useEffect(() => {
 		if (!form) return
-		const isCompleted = Object.keys(form).length < 1
-		if (!isCompleted) return
+		const clone = Object.values(form)
+		const isValidated = clone.every((el) => {
+			return false
+		})
+		if (!isValidated) return
 
 		if (flags.payment) {
 			setFlags((prev) => ({ ...prev, completed: true }))
+			return
 		}
-		if (flags.data) setFlags((prev) => ({ ...prev, payment: true }))
-		setFlags((prev) => ({ ...prev, data: true }))
+		if (flags.employee) {
+			setFlags((prev) => ({ ...prev, payment: true }))
+			return
+		}
+		setFlags((prev) => ({ ...prev, employee: true }))
 	}, [form])
 
 	useEffect(() => {
@@ -40,7 +47,7 @@ export function useHook() {
 		} else if (flags.payment) {
 			setButton('Confimar')
 			return
-		} else if (flags.data) {
+		} else if (flags.employee) {
 			setButton('Guardar')
 			return
 		} else {
@@ -50,24 +57,27 @@ export function useHook() {
 	}, [flags])
 
 	const signupEmployee = async (employee) => {
-		const response = await signup(employee)
+		console.log('signup')
+		/*	const response = await signup(employee)
 		console.log(response)
 		const { data } = response.error ? response.error : response
-		setApiResponse(data.message)
+		setApiResponse(data.message)*/
 	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		const formData = Array.from(event.target.elements)
-		const formValidated = regexTest(formData)
-		console.log(formValidated)
-		//setForm(formValidated)
+		const data = Array.from(event.target.elements)
+		const employee = regexTest(data)
+		console.log(employee)
+		setForm((prev) => {
+			if (!prev && !flags.employee) return employee
+			return { ...prev, ...employee }
+		})
 	}
 
 	const handleClick = () => {
 		setFlags(INITIAL_FLAGS)
 		setForm(null)
-		setError(null)
 	}
 
 	const myClass = styles.hire

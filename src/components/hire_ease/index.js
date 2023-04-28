@@ -8,13 +8,13 @@ export function HireEase() {
 	return (
 		<section className={myClass}>
 			<form onSubmit={handleSubmit}>
-				{!flags.data && !flags.completed && <HirePersonal error={form} />}
-				{flags.data && !flags.completed && <HirePayment error={form} />}
+				{!flags.employee && !flags.completed && <HirePersonal form={form} />}
+				{flags.employee && !flags.completed && <HirePayment form={form} />}
 				{flags.completed && (
 					<fieldset>
 						<p>
 							<span>
-								<b>{form.fieldset.name}</b>
+								<b>{form.name}</b>
 								<br />
 							</span>
 							{apiResponse}
@@ -24,7 +24,7 @@ export function HireEase() {
 				<fieldset className="group-btn">
 					<input
 						type="reset"
-						value={!flags.data ? 'Limpiar' : 'Volver'}
+						value={!flags.employee ? 'Limpiar' : 'Volver'}
 						onClick={handleClick}
 					/>
 					<button disabled={flags.completed}>{button}</button>

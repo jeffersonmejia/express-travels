@@ -17,11 +17,24 @@ export function regexTest(set) {
 	})
 	filtered.forEach((el) => {
 		const field = isEmptyField(el)
-		result = { ...result, [el.name]: field }
-		if (field.isEmpty) return
-		if (el.tagName !== 'SELECT') {
-			result = { ...result, [el.name]: isInvalidField(el) }
+		if (field.isEmpty) {
+			result = {
+				...result,
+				error: { ...result.error, [el.name]: field },
+			}
+			return
 		}
+		if (el.tagName !== 'SELECT') {
+			const input = isInvalidField(el)
+			if (input.isInvalid) {
+				result = {
+					...result,
+					error: { ...result.error, [el.name]: input },
+				}
+				return
+			}
+		}
+		result = { ...result, [el.name]: field }
 	})
 	return result
 }
@@ -31,7 +44,7 @@ function isEmptyField(el) {
 	const length = isSelect ? el.value : el.value.length
 	const isEmpty = length < INVALID_FIELD[el.tagName]
 	if (isEmpty) return { isEmpty: true }
-	return el.value
+	return isSelect ? { [el.selectedIndex]: el[el.selectedIndex].textContent } : el.value
 }
 
 function isInvalidField(el) {
