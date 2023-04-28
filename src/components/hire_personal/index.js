@@ -56,8 +56,8 @@ export function HirePersonal({ form }) {
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{error.lastname.isEmpty && 'El apellido no puede estar vacío'}
-							{error.lastname.isInvalid && 'El apellido ingresado es inválido'}
+							{form?.error.lastname.isEmpty && 'El apellido no puede estar vacío'}
+							{form?.error.lastname.isInvalid && 'El apellido ingresado es inválido'}
 						</small>
 					</label>
 				)}
@@ -96,7 +96,8 @@ export function HirePersonal({ form }) {
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{error.email_domain.isEmpty && 'Selecciona un dominio de correo válido'}
+							{form?.error.email_domain.isEmpty &&
+								'Selecciona un dominio de correo válido'}
 						</small>
 					</label>
 				)}

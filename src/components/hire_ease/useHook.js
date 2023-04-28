@@ -68,9 +68,10 @@ export function useHook() {
 		event.preventDefault()
 		const data = Array.from(event.target.elements)
 		const employee = regexTest(data)
-		console.log(employee)
+		const hasAnyError = employee.hasOwnProperty('error')
 		setForm((prev) => {
 			if (!prev && !flags.employee) return employee
+			if (!hasAnyError) delete prev.error
 			return { ...prev, ...employee }
 		})
 	}
