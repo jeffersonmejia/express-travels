@@ -19,19 +19,19 @@ export function HirePersonal({ form }) {
 							</option>
 						))}
 				</select>
-				{form?.error.dni && (
+				{form?.error?.dni && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.dni.isEmpty && 'La cédula no puede estar vacía'}
-							{form?.error.dni.isInvalid && 'La cédula ingresada es inválida'}
+							{form?.error?.dni.isEmpty && 'La cédula no puede estar vacía'}
+							{form?.error?.dni.isInvalid && 'La cédula ingresada es inválida'}
 						</small>
 					</label>
 				)}
-				{!form?.error.dni && form?.error.role && (
+				{!form?.error?.dni && form?.error?.role && (
 					<label className="error">
 						<span className={icon}>info</span>
-						<small>{form?.error.role.isEmpty && 'Selecciona un rol válido'}</small>
+						<small>{form?.error?.role.isEmpty && 'Selecciona un rol válido'}</small>
 					</label>
 				)}
 			</fieldset>
@@ -43,33 +43,33 @@ export function HirePersonal({ form }) {
 					placeholder="Apellidos completos"
 					maxLength="32"
 				/>
-				{form?.error.name && (
+				{form?.error?.name && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.name.isEmpty && 'El nombre no puede estar vacío'}
-							{form?.error.name.isInvalid && 'El nombre ingresado es inválido'}
+							{form?.error?.name.isEmpty && 'El nombre no puede estar vacío'}
+							{form?.error?.name.isInvalid && 'El nombre ingresado es inválido'}
 						</small>
 					</label>
 				)}
-				{!form?.error.name && form?.error.lastname && (
+				{!form?.error?.name && form?.error?.lastname && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.lastname.isEmpty && 'El apellido no puede estar vacío'}
-							{form?.error.lastname.isInvalid && 'El apellido ingresado es inválido'}
+							{form?.error?.lastname.isEmpty && 'El apellido no puede estar vacío'}
+							{form?.error?.lastname.isInvalid && 'El apellido ingresado es inválido'}
 						</small>
 					</label>
 				)}
 			</fieldset>
 			<fieldset>
 				<input type="tel" name="tel" placeholder="Teléfono celular" maxLength="10" />
-				{form?.error.tel && (
+				{form?.error?.tel && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.tel.isEmpty && 'El teléfono celular no puede estar vacío'}
-							{form?.error.tel.isInvalid && 'El teléfono celular ingresado es inválido'}
+							{form?.error?.tel.isEmpty && 'El teléfono celular no puede estar vacío'}
+							{form?.error?.tel.isInvalid && 'El teléfono celular ingresado es inválido'}
 						</small>
 					</label>
 				)}
@@ -82,21 +82,21 @@ export function HirePersonal({ form }) {
 					<option value="1">@hotmail.com</option>
 					<option value="2">@outlook.com</option>
 				</select>
-				{form?.error.email && (
+				{form?.error?.email && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.email.isEmpty && 'El correo electrónico no puede estar vacío'}
-							{form?.error.email.isInvalid &&
+							{form?.error?.email.isEmpty && 'El correo electrónico no puede estar vacío'}
+							{form?.error?.email.isInvalid &&
 								'El correo electrónico ingresado es inválido'}
 						</small>
 					</label>
 				)}
-				{!form?.error.email && form?.error.email_domain && (
+				{!form?.error?.email && form?.error?.email_domain && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.email_domain.isEmpty &&
+							{form?.error?.email_domain.isEmpty &&
 								'Selecciona un dominio de correo válido'}
 						</small>
 					</label>
@@ -106,21 +106,21 @@ export function HirePersonal({ form }) {
 				<input type="text" name="address1" placeholder="Calle 1" />
 				<input type="text" name="address2" placeholder="Calle 2" />
 
-				{form?.error.address1 && (
+				{form?.error?.address1 && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.address1?.isEmpty && 'La dirección 1 no puede estar vacía'}
-							{form?.error.address1?.isInvalid && 'La dirección 1 es inválida'}
+							{form?.error?.address1?.isEmpty && 'La dirección 1 no puede estar vacía'}
+							{form?.error?.address1?.isInvalid && 'La dirección 1 es inválida'}
 						</small>
 					</label>
 				)}
-				{!form?.error.address1 && form?.error.address2 && (
+				{!form?.error?.address1 && form?.error?.address2 && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{form?.error.address2?.isEmpty && 'La dirección 2 no puede estar vacía'}
-							{form?.error.address2?.isInvalid && 'La dirección 2 es inválida'}
+							{form?.error?.address2?.isEmpty && 'La dirección 2 no puede estar vacía'}
+							{form?.error?.address2?.isInvalid && 'La dirección 2 es inválida'}
 						</small>
 					</label>
 				)}

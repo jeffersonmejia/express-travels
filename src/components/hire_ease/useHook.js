@@ -17,12 +17,7 @@ export function useHook() {
 	const [signup] = useSignupMutation()
 
 	useEffect(() => {
-		if (!form) return
-		const clone = Object.values(form)
-		const isValidated = clone.every((el) => {
-			return false
-		})
-		if (!isValidated) return
+		if (!form || form.error) return
 
 		if (flags.payment) {
 			setFlags((prev) => ({ ...prev, completed: true }))
