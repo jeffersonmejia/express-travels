@@ -30,6 +30,7 @@ export async function queryDatabase(query, isRowRequired) {
 		if (isRowRequired && rows.length < 1) throw `Datos consultados: ${rows.length}`
 		return { success: true, message: 'ok', result: rows }
 	} catch (db_error) {
+		console.log(db_error)
 		return { success: false, message: `error - ${db_error}` }
 	} finally {
 		if (client) client.end()

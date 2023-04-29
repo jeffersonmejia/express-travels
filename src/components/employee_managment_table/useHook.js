@@ -71,6 +71,6 @@ export function useHook(usersQuery) {
 		users,
 		deleteUser,
 		updateUser,
-		roles: roles.result || [],
+		roles: roles?.result || [],
 	}
 }

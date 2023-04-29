@@ -9,7 +9,8 @@ async function queryRoles(since, until) {
 			values: [since, until],
 		}
 		const result = await queryDB(query)
-		if (!result?.rows || result?.rows < 1)
+		console.log(result)
+		if (!result?.rows || result?.rows?.length < 1)
 			throw {
 				success: false,
 				message: 'Lo sentimos, no se ha podido procesar la solicitud, intente más tarde.',

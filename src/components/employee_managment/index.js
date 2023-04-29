@@ -3,7 +3,6 @@ import { EmployeeManagmentTable } from '../employee_managment_table/'
 
 export function EmployeeManagment() {
 	const { myClass, handleSubmit, usersQuery, error, loading, defaultDate } = useHook()
-
 	return (
 		<section className={myClass}>
 			<form onSubmit={handleSubmit}>
@@ -36,7 +35,7 @@ export function EmployeeManagment() {
 				</fieldset>
 				{error && <small className="error">{error}</small>}
 			</form>
-			{usersQuery.length > 1 && <EmployeeManagmentTable usersQuery={usersQuery} />}
+			{usersQuery.length > 0 && <EmployeeManagmentTable usersQuery={usersQuery} />}
 		</section>
 	)
 }
