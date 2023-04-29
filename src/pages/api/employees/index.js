@@ -9,7 +9,6 @@ async function queryRoles(since, until) {
 			values: [since, until],
 		}
 		const result = await queryDB(query)
-		console.log(result)
 		if (!result?.rows || result?.rows?.length < 1)
 			throw {
 				success: false,
