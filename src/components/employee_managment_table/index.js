@@ -1,7 +1,6 @@
 import { useHook } from './useHook'
-import { Notifications } from '../notifications'
 export function EmployeeManagmentTable({ usersQuery }) {
-	const { myClass, icon, handleClick, users, deleteUser, updateUser, roles } =
+	const { myClass, icon, handleClick, users, deleteUser, updateUser, roles, userId } =
 		useHook(usersQuery)
 	return (
 		<article className={myClass}>
@@ -20,10 +19,13 @@ export function EmployeeManagmentTable({ usersQuery }) {
 				<tbody>
 					{users?.length > 0 &&
 						users.map((user) => (
-							<tr key={user.customer_id}>
+							<tr
+								key={user.customer_id}
+								className={userId === user.customer_id ? 'danger-row' : ''}
+							>
 								<td>{user.created_at}</td>
 								<td>{user.customer_dni}</td>
-								<td>{user.customer_lastname}</td>
+								<td>{user.customer_name}</td>
 								<td>{user.customer_lastname}</td>
 								<td>{user.role_id}</td>
 								<td className="table-actions">
@@ -32,21 +34,24 @@ export function EmployeeManagmentTable({ usersQuery }) {
 											<p>editar</p>
 											<span className={icon}>edit</span>
 										</small>
-										<small
-											data-delete="delete"
-											id={user.customer_id}
-											onClick={handleClick}
-										>
-											<p>
-												{deleteUser.id === user.customer_id &&
-													deleteUser.isError &&
-													'Error'}
-												{deleteUser.id === user.customer_id && deleteUser.confirm
-													? 'Confirmar'
-													: 'Eliminar'}
-											</p>
-											<span className={icon}>delete</span>
-										</small>
+										{userId !== user.customer_id && (
+											<small
+												data-delete="delete"
+												id={user.customer_id}
+												onClick={handleClick}
+											>
+												<p>
+													{deleteUser.id === user.customer_id &&
+														deleteUser.isError &&
+														'Error'}
+													{deleteUser.id === user.customer_id && deleteUser.confirm
+														? 'Confirmar'
+														: 'Eliminar'}
+												</p>
+
+												<span className={icon}>delete</span>
+											</small>
+										)}
 									</div>
 								</td>
 							</tr>

@@ -2,10 +2,12 @@ import styles from './styles.module.css'
 import { useDeleteEmployeeMutation } from '../../redux/features/employees/employeesAPI'
 import { useEffect, useState } from 'react'
 import { useGetRolesQuery } from '../../redux/features/roles/rolesAPI'
+import { useSelector } from 'react-redux'
 
 export function useHook(usersQuery) {
 	const [users, setUsers] = useState([])
 	const [deleteUser, setDelete] = useState({ confirm: false, id: null, isError: false })
+	const userId = useSelector((state) => state.user.userId)
 	const [updateUser, setUpdate] = useState({
 		flag: false,
 		confirm: false,
@@ -54,7 +56,6 @@ export function useHook(usersQuery) {
 				}, 5000)
 				return
 			}
-			//setUpdate({ flag: false })
 		}
 	}
 
@@ -72,5 +73,6 @@ export function useHook(usersQuery) {
 		deleteUser,
 		updateUser,
 		roles: roles?.result || [],
+		userId,
 	}
 }

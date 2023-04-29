@@ -17,7 +17,8 @@
 	--danger: red;
 	--success: green;
 	--btn-secondary: rgb(131, 189, 176);
-	--btn-danger: rgb(247, 150, 150);
+	--btn-danger: rgb(82, 30, 30);
+	--danger-row: rgba(255, 6, 6, 0.2);
 	--section-bg-color: rgb(201, 226, 247);
 	--section-hover-color: rgb(187, 218, 243);
 	--section-text-color: rgb(36, 143, 230);
@@ -186,10 +187,16 @@ tr:not(:nth-child(2n)) small:hover {
 tr:nth-child(2n) small:hover {
 	background-color: rgb(225, 225, 225);
 }
+.table-actions small {
+	max-width: 90px;
+	margin: auto;
+}
 .table-actions span {
 	font-size: 0.9rem;
 }
-
+tr.danger-row .table-actions small:nth-child(2) {
+	background-color: var(--btn-danger);
+}
 .group-btn {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
@@ -210,6 +217,7 @@ tr:nth-child(2n) small:hover {
 .group-btn button {
 	margin-left: auto;
 }
+
 .error {
 	color: var(--danger);
 	animation: opacity 0.3s ease-in;
