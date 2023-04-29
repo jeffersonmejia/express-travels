@@ -1,5 +1,5 @@
 import { useHook } from './useHook'
-
+import { Notifications } from '../notifications'
 export function EmployeeManagmentTable({ usersQuery }) {
 	const { myClass, icon, handleClick, users, deleteUser, updateUser, roles } =
 		useHook(usersQuery)
@@ -38,7 +38,12 @@ export function EmployeeManagmentTable({ usersQuery }) {
 											onClick={handleClick}
 										>
 											<p>
-												{deleteUser.id === user.customer_id ? 'Confirmar' : 'Eliminar'}
+												{deleteUser.id === user.customer_id &&
+													deleteUser.isError &&
+													'Error'}
+												{deleteUser.id === user.customer_id && deleteUser.confirm
+													? 'Confirmar'
+													: 'Eliminar'}
 											</p>
 											<span className={icon}>delete</span>
 										</small>

@@ -5,7 +5,7 @@ import { useGetRolesQuery } from '../../redux/features/roles/rolesAPI'
 
 export function useHook(usersQuery) {
 	const [users, setUsers] = useState([])
-	const [deleteUser, setDelete] = useState({ flag: false, id: null })
+	const [deleteUser, setDelete] = useState({ confirm: false, id: null, isError: false })
 	const [updateUser, setUpdate] = useState({
 		flag: false,
 		confirm: false,
@@ -15,18 +15,22 @@ export function useHook(usersQuery) {
 	const [deleteEmployee] = useDeleteEmployeeMutation()
 	const roles = useGetRolesQuery().data
 
-	const handleClick = (event) => {
+	const handleClick = async (event) => {
 		const { dataset, id } = event.currentTarget
 		const parsedID = parseInt(id)
 		if (dataset.delete) {
-			if (deleteUser.flag && deleteUser.id === parsedID) {
-				setUsers((prev) => {
-					return prev.filter((el) => el.customer_id !== parsedID)
-				})
-				setDelete({ flag: false, id: null })
-				return
+			if (deleteUser.confirm && deleteUser.id === parsedID) {
+				const response = await deleteEmployee(id)
+				if (response?.data?.success) {
+					setUsers((prev) => {
+						setDelete({ confirm: false, id: null })
+						return prev.filter((el) => el.customer_id !== parsedID)
+					})
+					return
+				}
+				setDelete({ isError: true, id: parsedID })
 			}
-			setDelete({ flag: true, id: parsedID })
+			setDelete({ confirm: true, id: parsedID })
 			return
 		} else if (dataset.edit) {
 			const userCopy = users.filter((user) => user.customer_id === parsedID)

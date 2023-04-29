@@ -12,7 +12,6 @@ async function signup(employee) {
 		}
 		const result = await queryDB(query)
 		if (!result.rows) throw { success: false, message: result }
-		console.log(result)
 		message = result.rows[0].register_customer
 		return { success: true, message }
 	} catch (error) {

@@ -33,7 +33,7 @@ echo ".component{
 echo "import styles from './styles.module.css'
 
 export function useHook(){
-	myClass = styles.component
+	const myClass = styles.component
 	return { myClass }
 }" > $hook
 
