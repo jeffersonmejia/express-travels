@@ -28,7 +28,7 @@ export async function queryDatabase(query, isRowRequired) {
 		const { rows } = db_response
 
 		if (isRowRequired && rows.length < 1) throw `Datos consultados: ${rows.length}`
-		return { success: true, message: 'ok', rows }
+		return { success: true, message: 'ok', result: rows }
 	} catch (db_error) {
 		return { success: false, message: `error - ${db_error}` }
 	} finally {

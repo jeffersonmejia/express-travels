@@ -1,6 +1,7 @@
 import { queryDB } from '../../../services/database'
 import { authHandler } from '../../../utils/authHandler'
 
+import { queryDatabase } from '../../../services/database'
 async function queryRoles(since, until) {
 	try {
 		const query = {
@@ -43,8 +44,8 @@ export default async function handler(req, res) {
 		res.status(400).json(isUserAuth.result)
 		return
 	}
+
 	if (req.method === 'DELETE') {
-		console.log()
 		const { id } = req.query
 		if (!id)
 			return res.status(404).json({ message: 'Petición rechazada, no se encontró el id' })
@@ -57,6 +58,16 @@ export default async function handler(req, res) {
 		return res.status(200).json(result)
 	}
 	if (req.method === 'POST') {
+		if (req.query?.dni) {
+			const { dni } = req.query
+			const query = {
+				text: 'select customer_dni from customers where customer_dni=$1;',
+				values: [dni],
+			}
+			const result = await queryDatabase(query, true)
+			if (result.success) return res.status(200).json(result)
+			return res.status(400).json({ message: 'Usuario no encontrado' })
+		}
 		const { since, until } = req.body
 		if (!since || !until) {
 			res.status(400).json({ message: 'Petición rechazada' })
@@ -69,5 +80,6 @@ export default async function handler(req, res) {
 		}
 		return res.status(200).json(result)
 	}
+
 	return res.status(404).json({ message: 'Método no permitido, petición rechazada' })
 }

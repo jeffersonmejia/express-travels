@@ -25,6 +25,7 @@ export function HirePersonal({ form }) {
 						<small>
 							{form?.error?.dni.isEmpty && 'La cédula no puede estar vacía'}
 							{form?.error?.dni.isInvalid && 'La cédula ingresada es inválida'}
+							{form?.error?.dni.exists && 'El usuario con la cédula indicada ya existe'}
 						</small>
 					</label>
 				)}

@@ -14,7 +14,7 @@ export function HireEase() {
 					<fieldset>
 						<p>
 							<span>
-								<b>{form.name}</b>
+								<b>{form?.name}</b>
 								<br />
 							</span>
 							{apiResponse}
@@ -27,7 +27,7 @@ export function HireEase() {
 						value={!flags.employee ? 'Limpiar' : 'Volver'}
 						onClick={handleClick}
 					/>
-					<button disabled={flags.completed}>{button}</button>
+					{!flags.completed && <button disabled={flags.confirm}>{button}</button>}
 				</fieldset>
 			</form>
 		</section>

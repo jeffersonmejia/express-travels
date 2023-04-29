@@ -3,10 +3,7 @@ import { genCredentials } from '../../../utils/credentialsHandler'
 
 async function signup(employee) {
 	let message
-	//maybe employee don't generate credentials because of the next fields are invalid: dni, name, lastname
 	employee = genCredentials(employee)
-	//this is printed 2 times
-	console.log('employee:' + Object.keys(employee))
 	try {
 		//error: has 13 y it wants 14
 		const query = {
@@ -15,9 +12,11 @@ async function signup(employee) {
 		}
 		const result = await queryDB(query)
 		if (!result.rows) throw { success: false, message: result }
+		console.log(result)
 		message = result.rows[0].register_customer
 		return { success: true, message }
 	} catch (error) {
+		console.log(`error - ${error}`)
 		message = 'Error al registrar el empleado'
 		return { success: false, message }
 	}

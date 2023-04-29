@@ -13,6 +13,12 @@ export const employeesAPI = createApi({
 				body: date,
 			}),
 		}),
+		getEmployeeByDNI: builder.mutation({
+			query: (dni) => ({
+				url: `api/employees?dni=${dni}`,
+				method: 'POST',
+			}),
+		}),
 		deleteEmployee: builder.mutation({
 			query: (id) => ({
 				url: `api/employees?id=${id}`,
@@ -21,4 +27,9 @@ export const employeesAPI = createApi({
 		}),
 	}),
 })
-export const { useGetEmployeesMutation, useDeleteEmployeeMutation } = employeesAPI
+
+export const {
+	useGetEmployeesMutation,
+	useDeleteEmployeeMutation,
+	useGetEmployeeByDNIMutation,
+} = employeesAPI

@@ -1,6 +1,6 @@
 import { useHook } from './useHook'
 
-export function HirePayment({ error }) {
+export function HirePayment({ form }) {
 	const { icon } = useHook()
 	return (
 		<fieldset>
@@ -20,21 +20,22 @@ export function HirePayment({ error }) {
 					<option value="0">CTA Ahorros</option>
 					<option value="1">CTA Corriente</option>
 				</select>
-				{error?.account_number && (
+				{form?.error?.account_number && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{error.account_number.isEmpty && 'El número de cuenta no puede estar vacío'}
-							{error.account_number.isInvalid &&
+							{form?.error?.account_number.isEmpty &&
+								'El número de cuenta no puede estar vacío'}
+							{form?.error?.account_number.isInvalid &&
 								'El número de cuenta ingresado es inválida'}
 						</small>
 					</label>
 				)}
-				{!error?.account_number && error?.account_type && (
+				{!form?.error?.account_number && form?.error?.account_type && (
 					<label className="error">
 						<span className={icon}>info</span>
 						<small>
-							{error.account_type.isEmpty && 'Selecciona un tipo de cuenta válido'}
+							{form?.error?.account_type.isEmpty && 'Selecciona un tipo de cuenta válido'}
 						</small>
 					</label>
 				)}
@@ -47,10 +48,10 @@ export function HirePayment({ error }) {
 					<option value="2">Banco Bolivariano</option>
 					<option value="3">Banco Solidario</option>
 				</select>
-				{error?.bank && (
+				{form?.error?.bank && (
 					<label className="error">
 						<span className={icon}>info</span>
-						<small>{error.bank.isEmpty && 'Selecciona un banco válido'}</small>
+						<small>{form?.error?.bank.isEmpty && 'Selecciona un banco válido'}</small>
 					</label>
 				)}
 			</fieldset>
