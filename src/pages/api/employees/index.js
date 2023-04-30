@@ -36,8 +36,15 @@ async function getEmployees(req) {
 	return await queryDatabase(query)
 }
 
-async function updateEmployee() {
-	return { success: true, message: 'ok' }
+async function updateEmployee(req) {
+	const { id } = req.query
+	if (!id) return { success: false, message: 'Petición rechazada, id inválido' }
+	const { dni, roleId, name, lastname } = req.body
+	const query = {
+		text: 'update customers set customer_dni=$1, role_id=$2, customer_name=$3, customer_lastname=$4 where customer_id = $5;',
+		values: [dni, roleId, name, lastname, id],
+	}
+	return await queryDatabase(query)
 }
 
 export default async function handler(req, res) {
