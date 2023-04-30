@@ -4,11 +4,15 @@
 	color: var(--reading-text-color);
 	padding: 32px;
 	border: var(--border-light);
+	display: flex;
+	flex-direction: column;
+	max-width: 800px;
+	margin: auto;
 }
 
 .component section {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+	grid-template-columns: repeat(auto-fill, minmax(150px, auto));
 	gap: 16px;
 }
 
@@ -21,4 +25,12 @@
 	border-radius: var(--border-radius-container);
 	padding: 16px;
 	border: var(--border-light);
+}
+.component section:nth-child(3) > header {
+	margin-top: 24px;
+	margin-bottom: 8px;
+}
+.component section:nth-child(2) > header {
+	margin-top: 12px;
+	margin-bottom: 8px;
 }
