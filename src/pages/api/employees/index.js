@@ -20,7 +20,9 @@ async function getEmployeeByDNI(dni) {
 		text: 'select customer_dni from customers where customer_dni=$1;',
 		values: [dni],
 	}
-	return await queryDatabase(query, true)
+	const result = await queryDatabase(query, true)
+	const { success } = result
+	return { success, message: success ? 'El empleado ya existe' : 'El empleado no existe' }
 }
 
 async function getEmployees(req) {
