@@ -1,19 +1,27 @@
 import { useHook } from './useHook'
 
 export function RoleSection() {
-	const { myClass, sections, sectionStyle, handleClick } = useHook()
+	const { myClass, handleClick, dashboard } = useHook()
+	if (!dashboard) return
 	return (
 		<ul className={myClass}>
-			{sections &&
-				sections.operation.map((el, index) => {
-					const flag = sections.actionActive === index
-					const active = flag ? sectionStyle : null
-					return (
-						<li key={index} data-value={index} className={active} onClick={handleClick}>
-							<h5>{el}</h5>
+			{dashboard.sections.map((section, index) => {
+				return (
+					<>
+						<li key={index}>
+							<p id={index}>{section.title}</p>
+							{section.operations.map((operation, idx) => {
+								return (
+									<small key={idx} id={idx} onClick={handleClick}>
+										{operation}
+									</small>
+								)
+							})}
 						</li>
-					)
-				})}
+						<hr />
+					</>
+				)
+			})}
 		</ul>
 	)
 }

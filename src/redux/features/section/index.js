@@ -6,7 +6,15 @@ export const sectionSlice = createSlice({
 	initialState,
 	reducers: {
 		toggleSection: (state, action) => {
-			state.actionActive = action.payload
+			const { section, operation } = action.payload
+			const newState = { ...state }
+			newState.dashboard.sectionOn = section
+			newState.dashboard.sections.forEach((el, idx) => {
+				if (idx === section) {
+					el.operationOn = operation
+				}
+			})
+			state = { ...state, newState }
 		},
 		setAccess: (state, action) => {
 			Object.assign(state, action.payload)

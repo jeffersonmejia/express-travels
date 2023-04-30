@@ -2,25 +2,21 @@
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
-	padding-right: 12px;
-}
-.sections li {
-	padding: 12px;
-	cursor: pointer;
-	display: flex;
-	gap: 8px;
-	align-items: center;
-	border-top-right-radius: var(--border-radius-container);
-	border-bottom-right-radius: var(--border-radius-container);
-}
-.sections h5 {
-	display: block;
-	text-align: right;
-}
-.section_active :is(span, h5) {
-	color: var(--section-text-color);
 }
 
-.section_active {
-	background-color: var(--section-hover-color);
+.sections li {
+	padding-left: 16px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+}
+.sections small {
+	border-radius: 24px;
+	cursor: pointer;
+	padding: 0 12px;
+}
+
+.sections small:hover {
+	text-decoration: underline;
 }

@@ -1,12 +1,14 @@
 import { useSelector } from 'react-redux'
-import { COMPONENT_BY_ROLE } from '../../utils/sectionByRole'
+import { getSection } from '../../utils/sectionByRole'
 
 export function useHook() {
-	const sections = useSelector((state) => state.sections)
-	const { userId } = useSelector((state) => state.user)
+	const actions = useSelector((state) => state.sections)
+	const userId = useSelector((state) => state.user.userId)
 	if (!userId) return { component: null }
 
-	const authorized = COMPONENT_BY_ROLE[sections.roleId]
-	const component = authorized[sections.actionActive]
+	const { sectionOn } = actions.dashboard
+	const { operationOn } = actions.dashboard.sections[sectionOn]
+	const roleId = actions.roleId
+	const component = getSection(roleId, sectionOn, operationOn)
 	return { component }
 }

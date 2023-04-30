@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleSection } from '../../redux/features/section'
+import { sectionByRole } from '../../utils/sectionByRole'
 
 export function useHook() {
-	const sections = useSelector((state) => state.sections)
+	const dashboard = useSelector((state) => state.sections.dashboard)
 	const dispatch = useDispatch()
-
 	const handleClick = (evt) => {
-		const { value } = evt.currentTarget.dataset
-		const actionActive = parseInt(value)
-		dispatch(toggleSection(actionActive))
+		const clicked = evt.currentTarget
+		const child = clicked.parentElement.children[0]
+		const section = parseInt(child.id)
+		const operation = parseInt(clicked.id)
+		dispatch(toggleSection({ section, operation }))
 	}
 	const myClass = styles.sections
 	const sectionStyle = styles.section_active
 	const material = 'material-symbols-outlined'
-	return { myClass, material, sections, sectionStyle, handleClick }
+	return { myClass, material, sectionStyle, handleClick, dashboard }
 }
