@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleSection } from '../../redux/features/section'
-import { sectionByRole } from '../../utils/sectionByRole'
+import { toggleAside } from '../../redux/features/navbar/navbarSlice'
 
 export function useHook() {
 	const dashboard = useSelector((state) => state.sections.dashboard)
@@ -12,6 +12,7 @@ export function useHook() {
 		const section = parseInt(child.id)
 		const operation = parseInt(clicked.id)
 		dispatch(toggleSection({ section, operation }))
+		dispatch(toggleAside())
 	}
 	const myClass = styles.sections
 	const sectionStyle = styles.section_active
