@@ -40,11 +40,21 @@ async function updateEmployee(req) {
 	const { id } = req.query
 	if (!id) return { success: false, message: 'Petición rechazada, id inválido' }
 	const { dni, roleId, name, lastname } = req.body
+	if (!dni || !roleId || !name || !lastname)
+		return { success: false, message: 'Petición rechazada, datos incompletos' }
 	const query = {
 		text: 'update customers set customer_dni=$1, role_id=$2, customer_name=$3, customer_lastname=$4 where customer_id = $5;',
 		values: [dni, roleId, name, lastname, id],
 	}
-	return await queryDatabase(query)
+
+	const result = await queryDatabase(query)
+	const { success } = result
+	return {
+		success: true,
+		message: success
+			? 'Empleado actualizado con éxito'
+			: 'Petición rechazada, no se realizaron actualizaciones',
+	}
 }
 
 export default async function handler(req, res) {

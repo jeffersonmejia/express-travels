@@ -35,6 +35,16 @@ export function useHook(usersQuery) {
 			setDelete({ confirm: true, id: parsedID })
 			return
 		} else if (dataset.edit) {
+			//http must be put
+			/*
+			
+			{
+	"dni":"1309852145",
+	"roleId":"5",
+	"name":"Maria Mercedes",
+	"lastname":"Chavez Garcia"
+}
+			*/
 			const userCopy = users.filter((user) => user.customer_id === parsedID)
 			setUpdate({ flag: true, user: userCopy[0] })
 			return
