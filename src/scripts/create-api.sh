@@ -20,7 +20,7 @@ api="$dir/$1"
 
 mkdir "$api"
 
-echo "import { queryDatabase } from '../../services/database'
+echo "import { queryDatabase } from '../../../services/database'
 import { isAuthHandler } from '../../../utils/authHandler'
 
 export default async function handler(req, res) {

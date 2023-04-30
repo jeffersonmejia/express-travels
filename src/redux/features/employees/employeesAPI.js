@@ -25,6 +25,9 @@ export const employeesAPI = createApi({
 				method: 'DELETE',
 			}),
 		}),
+		getStatistics: builder.query({
+			query: () => '/api/employees/dashboard',
+		}),
 	}),
 })
 
@@ -32,4 +35,5 @@ export const {
 	useGetEmployeesMutation,
 	useDeleteEmployeeMutation,
 	useGetEmployeeByDNIMutation,
+	useGetStatisticsQuery,
 } = employeesAPI

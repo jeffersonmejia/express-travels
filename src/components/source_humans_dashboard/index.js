@@ -1,39 +1,30 @@
 import { useHook } from './useHook.js'
 
 export function SourceHumansDashboard() {
-	const { myClass } = useHook()
-
+	const { myClass, employees, loading, error } = useHook()
+	console.log(employees)
 	return (
 		<main className={myClass}>
-			<h1>Dashboard</h1>
+			<h1>Resumen - Periodo 2023</h1>
+			{loading && !employees ? (
+				<small>Cargando...</small>
+			) : (
+				<section>
+					<header>
+						<h3>Empleados </h3>
+					</header>
+					{employees?.map((employee) => (
+						<article key={employee.role_id}>
+							<h5>{employee.role_name}</h5>
+							<small>{employee.count}</small>
+						</article>
+					))}
+				</section>
+			)}
+			{error && <small>Lo sentimos, ha ocurrido un error</small>}
 			<section>
 				<header>
-					<h2>Recursos humanos</h2>
-				</header>
-				<article>
-					<h5>Contratados</h5>
-					<small>40</small>
-				</article>
-				<article>
-					<h5>Encomienda</h5>
-					<small>40</small>
-				</article>
-				<article>
-					<h5>Boletería</h5>
-					<small>40</small>
-				</article>
-				<article>
-					<h5>Contabilidad</h5>
-					<small>40</small>
-				</article>
-				<article>
-					<h5>Sistemas</h5>
-					<small>40</small>
-				</article>
-			</section>
-			<section>
-				<header>
-					<h2>Ventas - Abril</h2>
+					<h3>Ventas </h3>
 				</header>
 				<article>
 					<h5>Encomienda</h5>

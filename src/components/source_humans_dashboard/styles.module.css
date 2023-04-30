@@ -1,13 +1,14 @@
 .component {
 	background-color: var(--card-bg-color);
 	border-radius: var(--border-radius-container);
-	color: var(--reading-text-color);
 	padding: 32px;
 	border: var(--border-light);
 	display: flex;
 	flex-direction: column;
 	max-width: 800px;
 	margin: auto;
+	margin-top: 2.2rem;
+	color: rgb(117, 117, 146);
 }
 
 .component section {
@@ -15,22 +16,25 @@
 	grid-template-columns: repeat(auto-fill, minmax(150px, auto));
 	gap: 16px;
 }
-
+.component h1 {
+	margin-bottom: 16px;
+}
 .component header {
 	grid-column: 1/-1;
 }
 
 .component article {
-	background-color: var(--main-bg-color);
+	background-color: rgb(236, 236, 255);
+	color: rgb(117, 117, 146);
 	border-radius: var(--border-radius-container);
 	padding: 16px;
-	border: var(--border-light);
+	/* border: var(--border-light); */
 }
 .component section:nth-child(3) > header {
 	margin-top: 24px;
 	margin-bottom: 8px;
 }
-.component section:nth-child(2) > header {
-	margin-top: 12px;
+.component section:nth-child(4) > header {
+	margin-top: 24px;
 	margin-bottom: 8px;
 }

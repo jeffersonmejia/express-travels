@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
-
-export function useHook(){
+import { useGetStatisticsQuery } from '../../redux/features/employees/employeesAPI'
+export function useHook() {
 	const myClass = styles.component
-	return { myClass }
+	const { data, loading, error } = useGetStatisticsQuery()
+	return { myClass, employees: data?.result, loading, error }
 }
