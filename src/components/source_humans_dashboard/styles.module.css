@@ -1,3 +1,24 @@
-.component{
-	background-color:rgb(245,245,245);
+.component {
+	background-color: var(--card-bg-color);
+	border-radius: var(--border-radius-container);
+	color: var(--reading-text-color);
+	padding: 32px;
+	border: var(--border-light);
+}
+
+.component section {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+	gap: 16px;
+}
+
+.component header {
+	grid-column: 1/-1;
+}
+
+.component article {
+	background-color: var(--main-bg-color);
+	border-radius: var(--border-radius-container);
+	padding: 16px;
+	border: var(--border-light);
 }
