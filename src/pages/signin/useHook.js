@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authorizeUser } from '../../redux/features/auth/authSlice'
 import { useRouter } from 'next/router'
 import styles from './style.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useHook() {
 	const [error, setError] = useState(null)
+	const [password, setPassword] = useState(null)
 	const [signin] = useSigninMutation()
 	const dispatch = useDispatch()
 	const router = useRouter()
 	const isLoggued = useSelector((state) => state.auth.isLoggued)
-	console.log(isLoggued)
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
@@ -22,10 +22,15 @@ export function useHook() {
 
 		authUser(credentials)
 	}
+	const handleClick = () => {
+		setPassword((prev) => {
+			return { show: prev?.show ? false : true }
+		})
+	}
 	const authUser = async (credentials) => {
 		try {
-			const fetch_response = await signin(credentials)
-			const { data, error } = fetch_response
+			const response = await signin(credentials)
+			const { data, error } = response
 			if (error) throw error
 			else if (status >= 400) throw data
 			dispatch(authorizeUser())
@@ -42,8 +47,31 @@ export function useHook() {
 			setTimeout(() => setError(null), 2000)
 		}
 	}
-	const handleChange = (event) => {}
 	const myClass = styles.main
 	const errorClass = `${styles.signin_error} error`
-	return { handleSubmit, handleChange, myClass, error, errorClass }
+	const material = 'material-symbols-outlined'
+	const password_style = styles.password_style
+
+	useEffect(() => {
+		const checkSession = async () => {
+			const response = await signin({ checkSession: true })
+			const status = response?.data?.status || false
+			if (status === 200) {
+				dispatch(authorizeUser())
+				router.push('/dashboard')
+			}
+		}
+		checkSession()
+	}, [])
+	return {
+		handleSubmit,
+		myClass,
+		error,
+		errorClass,
+		material,
+		password_style,
+		password,
+		handleClick,
+		isLoggued,
+	}
 }

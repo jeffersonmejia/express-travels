@@ -1,12 +1,14 @@
 .main {
-	height: 90vh;
+	height: 100vh;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
 .main form {
 	max-width: 450px;
+	margin-top: auto;
 }
 
 .main fieldset {
@@ -16,4 +18,30 @@
 
 .signin_error {
 	padding-left: 12px;
+}
+.main footer {
+	margin-top: auto;
+	margin-bottom: 32px;
+}
+
+.password_style {
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	width: 100%;
+}
+
+.password_style input {
+	width: 100%;
+}
+.password_style span {
+	position: absolute;
+	color: var(--reading-text-color);
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	margin-right: 8px;
+	font-size: 1.2rem;
 }

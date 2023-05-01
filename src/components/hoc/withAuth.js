@@ -3,41 +3,29 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useSigninMutation } from '../../redux/features/auth/authAPI'
 import { authorizeUser } from '../../redux/features/auth/authSlice'
-import { logOut } from '../../redux/features/auth/authSlice'
-import { Unathorized } from '../unathorized'
 
-const TIME_WAITING = 10000
 export function withAuth(WrappedComponent) {
 	const Wrapper = (props) => {
 		const router = useRouter()
 		const dispatch = useDispatch()
 		const [signin] = useSigninMutation()
-		const { isLoggued, hasLogOut } = useSelector((state) => state.auth)
+		const isLoggued = useSelector((state) => state.auth.isLoggued)
+		const hasLogOut = useSelector((state) => state.auth.hasLogOut)
+
 		useEffect(() => {
 			const hasSession = async () => {
-				if (isLoggued) return
-				if (hasLogOut) {
-					router.push('/signin')
-					return
-				}
-				try {
-					const response = await signin({ checkSession: true })
-					const { error } = response
-					if (error) throw error
-					dispatch(authorizeUser())
-				} catch (error) {
-					setTimeout(() => router.push('/signin'), TIME_WAITING)
-					console.log('happening ', hasLogOut)
-				}
+				if (hasLogOut) return router.push('/signin')
+				const session = { checkSession: true }
+				const response = await signin(session)
+				const error = response.error
+				if (error) return router.push('/signin')
+				dispatch(authorizeUser())
 			}
 			hasSession()
-		}, [isLoggued])
+		}, [isLoggued, dispatch, hasLogOut, router, signin])
 
-		if (isLoggued && !hasLogOut) {
-			return <WrappedComponent {...props} />
-		} else if (!isLoggued && !hasLogOut) {
-			return <Unathorized wait={TIME_WAITING} />
-		}
+		if (!isLoggued) return
+		if (isLoggued && !hasLogOut) return <WrappedComponent {...props} />
 	}
 
 	return Wrapper
