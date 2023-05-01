@@ -63,6 +63,9 @@ export function useHook() {
 			const response = await getEmployees(date)
 			const { data, error } = response
 			if (error) throw error
+			if (data.result.length < 1) {
+				throw data.result
+			}
 			setError(null)
 			setTimeout(() => {
 				setUsers(data.result)
@@ -70,9 +73,13 @@ export function useHook() {
 			}, 3000)
 		} catch (fetchError) {
 			setTimeout(() => {
+				if (fetchError?.length < 1) {
+					setError('No se encontraron datos')
+					setLoading(false)
+					return
+				}
 				setError(fetchError?.data?.message || 'Error interno')
 				setUsers([])
-				setLoading(false)
 			}, 3000)
 			setTimeout(() => setError(null), 6000)
 		}

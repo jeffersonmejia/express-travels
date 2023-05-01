@@ -114,10 +114,15 @@ export function EmployeeManagmentTable({ usersQuery }) {
 								<small>
 									<p onClick={handleClick} data-modal-cancel>
 										{!updateUser.sending && 'Cancelar'}
-										{updateUser.ended && updateUser.success
-											? 'Empleado actualizado con éxito'
-											: 'Error del servidor, actualización cancelada'}
 									</p>
+
+									{updateUser.ended && (
+										<p>
+											{updateUser.success
+												? 'Empleado actualizado con éxito'
+												: 'Error del servidor, actualización cancelada'}
+										</p>
+									)}
 								</small>
 								<button
 									onClick={handleClick}
