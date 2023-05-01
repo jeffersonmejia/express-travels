@@ -33,3 +33,6 @@
 .query_result form > fieldset fieldset:last-child p {
 	cursor: pointer;
 }
+.query_result form small:last-child {
+	text-align: center;
+}

@@ -25,6 +25,13 @@ export const employeesAPI = createApi({
 				method: 'DELETE',
 			}),
 		}),
+		updateEmployee: builder.mutation({
+			query: (employee) => ({
+				url: `api/employees?id=${employee.id}`,
+				method: 'PUT',
+				body: employee,
+			}),
+		}),
 		getStatistics: builder.query({
 			query: () => '/api/employees/dashboard',
 		}),
@@ -36,4 +43,5 @@ export const {
 	useDeleteEmployeeMutation,
 	useGetEmployeeByDNIMutation,
 	useGetStatisticsQuery,
+	useUpdateEmployeeMutation,
 } = employeesAPI

@@ -50,7 +50,7 @@ async function updateEmployee(req) {
 	const result = await queryDatabase(query)
 	const { success } = result
 	return {
-		success: true,
+		success,
 		message: success
 			? 'Empleado actualizado con éxito'
 			: 'Petición rechazada, no se realizaron actualizaciones',

@@ -80,11 +80,11 @@ export function EmployeeManagmentTable({ usersQuery }) {
 								<input
 									type="text"
 									placeholder="Cédula de identidad"
-									defaultValue={updateUser.user.customer_dni}
+									defaultValue={updateUser.user.dni}
 									disabled={updateUser.sending}
 								/>
 								<select
-									defaultValue={updateUser.user.role_id}
+									defaultValue={updateUser.user.roleId}
 									disabled={updateUser.sending}
 								>
 									<option value="-1">Selecciona el rol</option>
@@ -100,13 +100,13 @@ export function EmployeeManagmentTable({ usersQuery }) {
 								<input
 									type="text"
 									placeholder="Nombres completos"
-									defaultValue={updateUser.user.customer_name}
+									defaultValue={updateUser.user.name}
 									disabled={updateUser.sending}
 								/>
 								<input
 									type="text"
 									placeholder="Apellidos completos"
-									defaultValue={updateUser.user.customer_lastname}
+									defaultValue={updateUser.user.lastname}
 									disabled={updateUser.sending}
 								/>
 							</fieldset>
@@ -114,6 +114,9 @@ export function EmployeeManagmentTable({ usersQuery }) {
 								<small>
 									<p onClick={handleClick} data-modal-cancel>
 										{!updateUser.sending && 'Cancelar'}
+										{updateUser.ended && updateUser.success
+											? 'Empleado actualizado con éxito'
+											: 'Error del servidor, actualización cancelada'}
 									</p>
 								</small>
 								<button
@@ -123,7 +126,8 @@ export function EmployeeManagmentTable({ usersQuery }) {
 								>
 									{!updateUser.confirm && 'Guardar'}
 									{updateUser.confirm && !updateUser.sending && 'Confirmar'}
-									{updateUser.sending && 'Guardando...'}
+									{updateUser.sending && !updateUser.ended && 'Guardando...'}
+									{updateUser.ended && 'Guardar'}
 								</button>
 							</fieldset>
 						</fieldset>
