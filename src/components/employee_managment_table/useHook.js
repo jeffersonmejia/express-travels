@@ -47,6 +47,7 @@ export function useHook(usersQuery) {
 
 	const updateById = async () => {
 		if (!updateUser.confirm) return setUpdate((prev) => ({ ...prev, confirm: true }))
+
 		setUpdate((prev) => ({ ...prev, sending: true }))
 		const employee = updateUser.user
 		const response = await updateEmployee(employee)

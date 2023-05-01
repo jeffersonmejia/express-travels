@@ -1,5 +1,5 @@
 import { useSigninMutation } from '../../redux/features/auth/authAPI'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { authorizeUser } from '../../redux/features/auth/authSlice'
 import { useRouter } from 'next/router'
 import styles from './style.module.css'
@@ -10,6 +10,8 @@ export function useHook() {
 	const [signin] = useSigninMutation()
 	const dispatch = useDispatch()
 	const router = useRouter()
+	const isLoggued = useSelector((state) => state.auth.isLoggued)
+	console.log(isLoggued)
 
 	const handleSubmit = (event) => {
 		event.preventDefault()

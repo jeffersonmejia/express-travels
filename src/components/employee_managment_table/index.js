@@ -25,8 +25,8 @@ export function EmployeeManagmentTable({ usersQuery }) {
 							>
 								<td>{user.created_at}</td>
 								<td>{user.customer_dni}</td>
-								<td>{user.customer_name}</td>
 								<td>{user.customer_lastname}</td>
+								<td>{user.customer_name}</td>
 								<td>{user.role_id}</td>
 								<td className="table-actions">
 									<div>

@@ -66,7 +66,7 @@ export function useHook() {
 		const hasAnyError = employee.hasOwnProperty('error')
 		if (employee.dni && !flags.payment) {
 			const response = await getEmployeeByDNI(employee.dni)
-			const { success } = response?.data
+			const success = response?.data?.success || false
 			if (success) return setForm({ error: { dni: { exists: success } } })
 		}
 		setForm((prev) => {
