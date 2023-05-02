@@ -1,9 +1,6 @@
 .main {
 	background-color: var(--card-bg-color);
-}
-
-.main {
-	height: 90vh;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -15,4 +12,17 @@
 	max-width: 150px;
 	margin: 16px 0;
 	cursor: pointer;
+}
+.main h1 {
+	color: rgb(190, 190, 190);
+}
+.main figure {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.main figcaption {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }

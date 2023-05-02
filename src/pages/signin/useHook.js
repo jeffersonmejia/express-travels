@@ -56,10 +56,7 @@ export function useHook() {
 		const checkSession = async () => {
 			const response = await signin({ checkSession: true })
 			const status = response?.data?.status || false
-			if (status === 200) {
-				dispatch(authorizeUser())
-				router.push('/dashboard')
-			}
+			if (status === 200) router.push('/dashboard')
 		}
 		checkSession()
 	}, [])
